@@ -7,7 +7,7 @@ function NewsCard() {
     <div className="mx-auto px-4 pt-8 max-w-md 2xl:max-w-lg mt-5">
       <div className="bg-white shadow-2xl rounded-lg mb-6 tracking-wide relative">
         <button
-          className="absolute bg-gray-800 hover:bg-gray-500 focus:outline-none text-white rounded-lg p-2 opacity-70 right-1 top-1"
+          className="absolute text-sm bg-gray-800 hover:bg-gray-500 focus:outline-none text-white rounded-lg p-2 opacity-70 right-1 top-1"
           onClick={() => deleteNews()}
         >
           <i className="fas fa-trash-alt"></i> Delete
