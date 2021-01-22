@@ -9,7 +9,7 @@ function Gallery() {
 
   return (
     <>
-      <div className="w-full bg-gray-100 rounded-b-lg shadow fixed z-2">
+      <div className="w-full bg-gray-100 rounded-b-lg shadow fixed z-10">
         <div className="p-4 text-2xl">Gallery</div>
       </div>
       <div className="flex flex-wrap pt-16 z-0">
