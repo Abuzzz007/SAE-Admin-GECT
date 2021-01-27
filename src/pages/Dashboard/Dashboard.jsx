@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 //Components
 import Sidebar from "../../components/Sidebar/Sidebar";
 //Pages
@@ -21,8 +21,10 @@ function Dashboard(props) {
           <Switch>
             <Route path="/gallery" exact component={Gallery} />
             <Route path="/news" exact component={News} />
+            <Redirect path="*" to="/gallery" />
           </Switch>
         </div>
+        {/* Footer */}
         <div className="border-t-2 bg-gray-100">
           <h2 className="text-center p-3 text-gray-400">© 2021 SAE-GECT</h2>
         </div>

@@ -1,11 +1,21 @@
-import { useState } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-//Containers
+import { useLayoutEffect, useState } from "react";
+import { Switch, Route } from "react-router-dom";
+//Pages
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Error from "./pages/Error/Error";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useLayoutEffect(() => {
+    if (
+      window.sessionStorage.getItem("isLoggedIn") === "true" ||
+      window.localStorage.getItem("isLoggedIn") === "true"
+    ) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   let route;
   if (isLoggedIn) {
     route = <Dashboard setIsLoggedIn={setIsLoggedIn} />;
@@ -17,7 +27,7 @@ function App() {
           exact
           render={() => <Login setIsLoggedIn={setIsLoggedIn} />}
         />
-        <Redirect path="*" to="/" />
+        <Route path="*" component={Error} />
       </Switch>
     );
   }
