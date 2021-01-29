@@ -43,7 +43,7 @@ function Sidebar(props) {
   };
 
   const mouseLeaveHandler = () => {
-    if (window.innerWidth >= 640) {
+    if (window.innerWidth >= 768) {
       setCollapse(true);
     }
   };
