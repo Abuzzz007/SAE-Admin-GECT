@@ -49,8 +49,8 @@ function Sidebar(props) {
   };
 
   const logoutHandler = () => {
-    window.sessionStorage.setItem("isLoggedIn", "false");
-    window.localStorage.setItem("isLoggedIn", "false");
+    window.localStorage.clear();
+    window.sessionStorage.clear();
     props.setIsLoggedIn(false);
     history.push("/");
   };

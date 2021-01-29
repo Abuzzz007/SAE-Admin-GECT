@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import firebase from "firebase/app";
+import "firebase/auth";
 //Images
 import logo from "../../assets/logo192.png";
 //Components
 import Loader from "../../components/Loaders/LoginLoader";
+import NetworkErrModal from "../../components/Modals/NetworkErrModal";
 
 function Login(props) {
   const [state, setState] = useState({
@@ -16,8 +19,8 @@ function Login(props) {
     eContent: "",
     pContent: "",
   });
-  // eslint-disable-next-line
   const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const resize = () => {
     let vh = window.innerHeight * 0.01;
@@ -27,6 +30,8 @@ function Login(props) {
 
   useEffect(() => {
     window.addEventListener("resize", resize);
+
+    return () => window.removeEventListener("resize", resize);
   }, []);
 
   const formHandler = (e) => {
@@ -35,6 +40,48 @@ function Login(props) {
     } else {
       setState({ ...state, remember: !state.remember });
     }
+  };
+
+  const loginHandler = () => {
+    setIsLoading(true);
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(state.email, state.password)
+      .then(() => {
+        setIsLoading(false);
+        let authData = JSON.stringify({
+          email: state.email,
+          password: state.password,
+        });
+        if (state.remember) {
+          window.localStorage.setItem("auth_data", authData);
+          window.localStorage.setItem("isLoggedIn", "true");
+        } else {
+          window.sessionStorage.setItem("auth_data", authData);
+          window.sessionStorage.setItem("isLoggedIn", "true");
+        }
+        props.setIsLoggedIn("true");
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        if (err.code === "auth/user-not-found") {
+          setValid({
+            email: false,
+            password: true,
+            eContent: "This email is not authorized!",
+            pContent: "",
+          });
+        } else if (err.code === "auth/wrong-password") {
+          setValid({
+            email: true,
+            password: false,
+            eContent: "",
+            pContent: "Wrong password",
+          });
+        } else {
+          setShowModal(true);
+        }
+      });
   };
 
   const submitHandler = (e) => {
@@ -70,16 +117,13 @@ function Login(props) {
     setValid(Validobj);
     if (!Valid) return;
 
-    if (state.remember) {
-      window.localStorage.setItem("isLoggedIn", "true");
-    } else {
-      window.sessionStorage.setItem("isLoggedIn", "true");
-    }
-    props.setIsLoggedIn("true");
+    //login function
+    loginHandler();
   };
 
   return (
     <>
+      {showModal ? <NetworkErrModal setShowModal={setShowModal} /> : ""}
       <div className="w-full h-full bg-gray-900">
         <div
           className="absolute w-screen h-screen bg-gray-900"
@@ -89,7 +133,7 @@ function Login(props) {
           <div className="flex content-center items-center justify-center h-full">
             <div className="w-full sm:w-6/12 lg:w-5/12 xl:w-4/12 2xl:w-3/12 px-4">
               <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
-                <img className="mx-auto" src={logo} alt="logo" />
+                <img className="mx-auto h-48 w-48" src={logo} alt="logo" />
                 <div className="flex-auto px-4 py-10 pt-0 relative">
                   {isLoading ? <Loader /> : ""}
                   <div className="text-gray-500 text-center mb-3 font-bold">
@@ -110,6 +154,7 @@ function Login(props) {
                         placeholder="Email"
                         value={state.email}
                         onChange={formHandler}
+                        autoFocus
                       />
                       {valid.email ? (
                         ""
