@@ -14,7 +14,7 @@ function Gallery() {
 
   return (
     <>
-      <div className="left-0 sm:left-14 mt-16 sm:mt-0 md:left-64 right-0 bg-gray-100 rounded-b-lg shadow fixed z-10">
+      <div className="left-0 sm:left-14 mt-16 sm:mt-0 lg:left-64 right-0 bg-gray-100 rounded-b-lg shadow fixed z-10">
         <div className="p-1 pl-4 sm:p-4 text-lg sm:text-2xl">Gallery</div>
       </div>
       <div className="flex flex-wrap pt-24 sm:pt-16 z-0">

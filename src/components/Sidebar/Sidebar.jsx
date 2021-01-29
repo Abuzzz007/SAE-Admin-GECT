@@ -15,7 +15,14 @@ function Sidebar(props) {
 
   useEffect(() => {
     const sidebar = document.getElementsByClassName("sliding-sidebar")[0];
+    const menu = [...document.getElementsByClassName("menu-btn")];
     const checkclick = (e) => {
+      menu.map((btn) => {
+        if (!collapse && btn.contains(e.target)) {
+          setCollapse(true);
+        }
+        return 0;
+      });
       if (!collapse && !sidebar.contains(e.target)) {
         setCollapse(true);
       }
@@ -30,7 +37,7 @@ function Sidebar(props) {
     "text-gray-400 border-r-4 border-gray-800 hover:bg-gray-700 hover:text-gray-100 hover:border-gray-100";
 
   const mouseEnterHandler = () => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1024) {
       setCollapse(false);
     }
   };
@@ -72,12 +79,12 @@ function Sidebar(props) {
 
       {/* actual sidebar */}
       <div
-        className="w-14 md:w-64 h-screen bg-gray-900 fixed top-0 left-0 overflow-auto hidden sm:block"
+        className="w-14 lg:w-64 h-screen bg-gray-900 fixed top-0 left-0 overflow-auto hidden sm:block"
         onMouseEnter={() => mouseEnterHandler()}
       >
         <div className="flex items-center justify-center mt-10">
-          <img className="w-9 md:w-12 py-1.5 md:py-0" src={logo} alt="Logo" />
-          <h1 className="text-gray-100 text-2xl mb-3 ml-2 md:block hidden">
+          <img className="w-9 lg:w-12 py-1.5 lg:py-0" src={logo} alt="Logo" />
+          <h1 className="text-gray-100 text-2xl mb-3 ml-2 lg:block hidden">
             Admin
           </h1>
         </div>
@@ -85,7 +92,7 @@ function Sidebar(props) {
         <nav className="mt-10">
           <button
             className={
-              "flex items-center py-3 md:py-2 px-4 md:px-8 w-full focus:outline-none " +
+              "flex items-center py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
               (route === "/gallery" ? selected : unselected)
             }
             onClick={() => {
@@ -94,12 +101,12 @@ function Sidebar(props) {
             }}
           >
             <i className="far fa-images"></i>
-            <span className="mx-4 font-medium md:block hidden">Gallery</span>
+            <span className="mx-4 font-medium lg:block hidden">Gallery</span>
           </button>
 
           <button
             className={
-              "flex items-center mt-5 py-3 md:py-2 px-4 md:px-8 w-full focus:outline-none " +
+              "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
               (route === "/news" ? selected : unselected)
             }
             onClick={() => {
@@ -108,18 +115,18 @@ function Sidebar(props) {
             }}
           >
             <i className="far fa-newspaper"></i>
-            <span className="mx-4 font-medium md:block hidden">News</span>
+            <span className="mx-4 font-medium lg:block hidden">News</span>
           </button>
 
           <button
             className={
-              "flex items-center mt-5 py-3 md:py-2 px-4 md:px-8 w-full focus:outline-none " +
+              "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
               unselected
             }
             onClick={() => setShowModal(true)}
           >
             <i className="fas fa-power-off"></i>
-            <span className="mx-4 font-medium md:block hidden">Log Out</span>
+            <span className="mx-4 font-medium lg:block hidden">Log Out</span>
           </button>
         </nav>
       </div>
@@ -127,7 +134,7 @@ function Sidebar(props) {
       {/* sliding sidebar */}
       <div
         className={
-          "sliding-sidebar w-56 sm:w-64 h-screen bg-gray-900 fixed top-0 overflow-auto z-20 transition duration-500 md:hidden transform " +
+          "sliding-sidebar w-56 sm:w-64 h-screen bg-gray-900 fixed top-0 overflow-auto z-20 transition duration-500 lg:hidden transform " +
           (collapse ? "-translate-x-64" : "")
         }
         onMouseLeave={() => mouseLeaveHandler()}
@@ -140,7 +147,7 @@ function Sidebar(props) {
         <nav className="mt-10">
           <button
             className={
-              "flex items-center py-2 px-8 w-full focus:outline-none " +
+              "menu-btn flex items-center py-2 px-8 w-full focus:outline-none " +
               (route === "/gallery" ? selected : unselected)
             }
             onClick={() => {
@@ -154,7 +161,7 @@ function Sidebar(props) {
 
           <button
             className={
-              "flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
+              "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
               (route === "/news" ? selected : unselected)
             }
             onClick={() => {
@@ -168,7 +175,7 @@ function Sidebar(props) {
 
           <button
             className={
-              "flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
+              "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
               unselected
             }
             onClick={() => setShowModal(true)}
