@@ -14,7 +14,7 @@ function Dashboard(props) {
       <div className="bg-gray-200 h-full w-full absolute"></div>
       <Sidebar setIsLoggedIn={props.setIsLoggedIn} />
       <div
-        className="relative flex flex-col ml-14 md:ml-64 h-screen"
+        className="relative flex flex-col ml-0 sm:ml-14 md:ml-64 h-screen"
         style={{ height: "calc(var(--vh, 1vh) * 100)" }}
       >
         <div className="flex-grow bg-gray-200 pb-10">

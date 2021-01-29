@@ -11,7 +11,7 @@ function Modal(props) {
   }, []);
 
   return (
-    <div className="fixed z-20 inset-0">
+    <div className="fixed z-30 inset-0">
       <div
         className="absolute inset-0 bg-black opacity-75"
         onClick={() => props.setShowModal(false)}
