@@ -15,8 +15,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     if (
-      window.sessionStorage.getItem("isLoggedIn") === "true" ||
-      window.localStorage.getItem("isLoggedIn") === "true"
+      window.sessionStorage.getItem("auth_data") ||
+      window.localStorage.getItem("auth_data")
     ) {
       loginHandler();
     } else {

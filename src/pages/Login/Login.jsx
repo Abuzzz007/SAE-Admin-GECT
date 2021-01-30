@@ -55,10 +55,8 @@ function Login(props) {
         });
         if (state.remember) {
           window.localStorage.setItem("auth_data", authData);
-          window.localStorage.setItem("isLoggedIn", "true");
         } else {
           window.sessionStorage.setItem("auth_data", authData);
-          window.sessionStorage.setItem("isLoggedIn", "true");
         }
         props.setIsLoggedIn("true");
       })

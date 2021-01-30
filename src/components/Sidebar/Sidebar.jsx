@@ -43,7 +43,7 @@ function Sidebar(props) {
   };
 
   const mouseLeaveHandler = () => {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= 640) {
       setCollapse(true);
     }
   };
@@ -65,15 +65,15 @@ function Sidebar(props) {
 
       {/* horizontal navbar */}
       <div className="sm:hidden bg-gray-900 left-0 top-0 right-0 shadow fixed z-10">
-        <div className="flex py-2">
+        <div className="flex pt-2 pb-1">
           <button
-            className="text-gray-100 text-2xl p-2 -mt-1 px-5 focus:outline-none"
+            className="text-gray-100 text-2xl p-2 px-3 -mt-1 mx-2 rounded-md focus:outline-none hover:bg-gray-700"
             onClick={() => setCollapse(false)}
           >
             <i className="fas fa-bars"></i>
           </button>
-          <img className="w-12" src={logo} alt="Logo" />
-          <h1 className="text-gray-100 text-2xl mt-1 ml-2 block">Admin</h1>
+          <img className="w-12 h-12" src={logo} alt="Logo" />
+          <h1 className="text-gray-100 text-2xl pt-1 pl-2 block">Admin</h1>
         </div>
       </div>
 
@@ -84,7 +84,7 @@ function Sidebar(props) {
       >
         <div className="flex items-center justify-center mt-10">
           <img className="w-9 lg:w-12 py-1.5 lg:py-0" src={logo} alt="Logo" />
-          <h1 className="text-gray-100 text-2xl mb-3 ml-2 lg:block hidden">
+          <h1 className="text-gray-100 text-2xl mb-2 ml-2 lg:block hidden">
             Admin
           </h1>
         </div>
@@ -141,7 +141,7 @@ function Sidebar(props) {
       >
         <div className="flex items-center justify-center mt-10">
           <img className="w-12" src={logo} alt="Logo" />
-          <h1 className="text-gray-100 text-2xl mb-3 ml-2 block">Admin</h1>
+          <h1 className="text-gray-100 text-2xl mb-2 ml-2 block">Admin</h1>
         </div>
 
         <nav className="mt-10">
