@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import firebase from "firebase/app";
+import "firebase/database";
 //Components
 import NewsCard from "../../components/Cards/NewsCard";
 import NewsForm from "../../components/Forms/NewsForm";
@@ -6,11 +8,44 @@ import Alert from "../../components/Alerts/Alert";
 import Loader from "../../components/Loaders/ContentLoader";
 
 function News() {
-  // const [state, setState] = useState({ addNew: false });
+  const [data, setData] = useState(null);
+  const [keys, setKeys] = useState(null);
   const [addNew, setAddNew] = useState(false);
   const [alert, setAlert] = useState("");
-  // eslint-disable-next-line
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    setIsLoading(true);
+    firebase
+      .database()
+      .ref("/news/")
+      .once("value")
+      .then((snapshot) => {
+        let data = snapshot.val();
+        if (data) {
+          let sortedData = Object.fromEntries(
+            Object.entries(data).sort(
+              (a, b) => new Date(b[1].date) - new Date(a[1].date)
+            )
+          );
+          setData(Object.values(sortedData));
+          setKeys(Object.keys(sortedData));
+        } else {
+          setData(null);
+          setKeys(null);
+          setAlert({
+            type: "danger",
+            title: "No data present in database!",
+            content: "",
+          });
+        }
+        setIsLoading(false);
+      });
+  };
 
   return (
     <>
@@ -33,14 +68,32 @@ function News() {
               <i className="fas fa-plus"></i> Add News
             </button>
           ) : (
-            <NewsForm setAddNew={setAddNew} setAlert={setAlert} />
+            <NewsForm
+              setAddNew={setAddNew}
+              setAlert={setAlert}
+              fetchData={fetchData}
+            />
           )}
         </div>
         {isLoading ? <Loader /> : ""}
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
+        {data
+          ? keys
+            ? data.map((data, i) => (
+                <div className="mx-auto px-4 pt-8 max-w-md mt-5" key={i}>
+                  <NewsCard
+                    Key={keys[i]}
+                    title={data.title}
+                    date={data.date}
+                    content={data.content}
+                    imageUrl={data.imageUrl}
+                    fileName={data.fileName}
+                    fetchData={fetchData}
+                    setAlert={setAlert}
+                  />
+                </div>
+              ))
+            : ""
+          : ""}
       </div>
     </>
   );

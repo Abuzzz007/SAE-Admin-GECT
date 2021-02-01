@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import firebase from "firebase/app";
+import "firebase/database";
 //Components
 import GalleryCard from "../../components/Cards/GalleryCard";
 import GalleryForm from "../../components/Forms/GalleryForm";
@@ -6,11 +8,39 @@ import Alert from "../../components/Alerts/Alert";
 import Loader from "../../components/Loaders/ContentLoader";
 
 function Gallery() {
-  // const [state, setState] = useState({ addNew: false });
+  const [data, setData] = useState(null);
+  const [keys, setKeys] = useState(null);
   const [addNew, setAddNew] = useState(false);
   const [alert, setAlert] = useState("");
-  // eslint-disable-next-line
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    setIsLoading(true);
+    firebase
+      .database()
+      .ref("/gallery/")
+      .once("value")
+      .then((snapshot) => {
+        let data = snapshot.val();
+        if (data) {
+          setData(Object.values(data));
+          setKeys(Object.keys(data));
+        } else {
+          setData(null);
+          setKeys(null);
+          setAlert({
+            type: "danger",
+            title: "No data present in database!",
+            content: "",
+          });
+        }
+        setIsLoading(false);
+      });
+  };
 
   return (
     <>
@@ -33,14 +63,29 @@ function Gallery() {
               <i className="fas fa-plus"></i> Add Images
             </button>
           ) : (
-            <GalleryForm setAddNew={setAddNew} setAlert={setAlert} />
+            <GalleryForm
+              setAddNew={setAddNew}
+              setAlert={setAlert}
+              fetchData={fetchData}
+            />
           )}
         </div>
         {isLoading ? <Loader /> : ""}
-        <GalleryCard />
-        <GalleryCard />
-        <GalleryCard />
-        <GalleryCard />
+        {data
+          ? keys
+            ? data.map((data, i) => (
+                <div className="mx-auto px-4 pt-8 max-w-md mt-5" key={i}>
+                  <GalleryCard
+                    Key={keys[i]}
+                    imageUrl={data.imageUrl}
+                    fileName={data.fileName}
+                    fetchData={fetchData}
+                    setAlert={setAlert}
+                  />
+                </div>
+              ))
+            : ""
+          : ""}
       </div>
     </>
   );

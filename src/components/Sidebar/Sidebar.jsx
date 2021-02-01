@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 //Components
-import Modal from "../Modals/LogOutModal";
+import LogOutModal from "../Modals/LogOutModal";
 //Images
 import logo from "../../assets/logo192.png";
 
@@ -58,7 +58,10 @@ function Sidebar(props) {
   return (
     <>
       {showModal ? (
-        <Modal setShowModal={setShowModal} logoutHandler={logoutHandler} />
+        <LogOutModal
+          setShowModal={setShowModal}
+          logoutHandler={logoutHandler}
+        />
       ) : (
         ""
       )}
@@ -134,7 +137,7 @@ function Sidebar(props) {
       {/* sliding sidebar */}
       <div
         className={
-          "sliding-sidebar w-56 sm:w-64 h-screen bg-gray-900 fixed top-0 overflow-auto z-20 transition duration-500 lg:hidden transform " +
+          "sliding-sidebar w-56 sm:w-64 h-screen bg-gray-900 fixed top-0 overflow-auto z-30 transition duration-500 lg:hidden transform " +
           (collapse ? "-translate-x-64" : "")
         }
         onMouseLeave={() => mouseLeaveHandler()}

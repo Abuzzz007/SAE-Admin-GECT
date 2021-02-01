@@ -1,4 +1,7 @@
 import { useState } from "react";
+import firebase from "firebase/app";
+import "firebase/database";
+import "firebase/storage";
 //Components
 import Modal from "../Modals/ImageModal";
 import Loader from "../Loaders/FormLoader";
@@ -11,8 +14,8 @@ function NewsForm(props) {
     image: "",
   });
   const [showModal, setShowModal] = useState(false);
-  // eslint-disable-next-line
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadPercent, setUploadPercent] = useState(0);
 
   const dragEnter = (e) => {
     e.preventDefault();
@@ -71,6 +74,69 @@ function NewsForm(props) {
     }
   };
 
+  const addData = () => {
+    setIsLoading(true);
+
+    let fileName = String(Number(new Date())) + state.image.name;
+    let uploadTask = firebase
+      .storage()
+      .ref("/news/" + fileName)
+      .put(state.image);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        setUploadPercent(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+      },
+      (err) => {
+        props.setAlert({
+          type: "danger",
+          title: "Error!",
+          content: "Sorry, you don't have access",
+        });
+        setIsLoading(false);
+      },
+      () => {
+        setTimeout(() => {
+          setUploadPercent(101);
+        }, 500);
+        uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+          firebase
+            .database()
+            .ref("/news/")
+            .push(
+              {
+                title: state.title,
+                date: state.date,
+                content: state.content,
+                fileName: fileName,
+                imageUrl: url,
+              },
+              (err) => {
+                if (!err) {
+                  props.setAlert({
+                    type: "success",
+                    title: "Saved successfully",
+                    content: "",
+                  });
+                  props.setAddNew(false);
+                  props.fetchData();
+                } else {
+                  props.setAlert({
+                    type: "danger",
+                    title: "Error!",
+                    content: "Sorry you don't have access",
+                  });
+                  setIsLoading(false);
+                }
+              }
+            );
+        });
+      }
+    );
+  };
+
   const formSubmit = (e) => {
     e.preventDefault();
 
@@ -94,18 +160,13 @@ function NewsForm(props) {
       return;
     }
 
-    props.setAlert({
-      type: "success",
-      title: "Saved successfully",
-      content: "",
-    });
-    props.setAddNew(false);
+    // add data to database
+    addData();
   };
 
   const formCancel = (e) => {
     e.preventDefault();
     props.setAlert("");
-    console.log("Cancelled");
     props.setAddNew(false);
   };
 
@@ -119,7 +180,7 @@ function NewsForm(props) {
       <div className="mt-5 md:col-span-2">
         <form>
           <div className="shadow rounded-md sm:overflow-hidden relative">
-            {isLoading ? <Loader /> : ""}
+            {isLoading ? <Loader uploadPercent={uploadPercent} /> : ""}
             <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-3">

@@ -1,7 +1,4 @@
 {
-  "database": {
-    "rules": "database.rules.json"
-  },
   "hosting": {
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
@@ -11,8 +8,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  "storage": {
-    "rules": "storage.rules"
   }
 }

@@ -24,20 +24,18 @@ function Modal(props) {
           <div className="text-center sm:text-left">
             <h3 className="text-lg leading-6 font-medium text-red-500">
               <i className="fas fa-exclamation-triangle mr-2"></i>
-              Log Out
+              Delete
             </h3>
             <div className="mt-2">
-              <p className="text-sm text-gray-500">
-                Are you sure you want to log out?
-              </p>
+              <p className="text-sm text-gray-500">{props.message}</p>
             </div>
           </div>
           <div className="py-5 text-center">
             <button
               className="w-full justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-2 sm:mr-1 sm:w-auto sm:text-sm"
-              onClick={() => props.logoutHandler()}
+              onClick={() => props.deleteCard()}
             >
-              Log out
+              Delete
             </button>
             <button
               className="mt-3 w-full justify-center rounded-md border shadow-sm px-4 py-2 bg-gray-800 text-base font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-1 sm:mr-2 sm:w-auto sm:text-sm"
