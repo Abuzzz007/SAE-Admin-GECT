@@ -5,7 +5,7 @@ import { useState } from "react";
 //Components
 import DeleteModal from "../Modals/DeleteModal";
 
-function NewsCard(props) {
+function EventsCard(props) {
   const [showModal, setShowModal] = useState(false);
 
   // editing date
@@ -34,12 +34,12 @@ function NewsCard(props) {
     setShowModal(false);
     firebase
       .storage()
-      .ref("/news/" + props.fileName)
+      .ref("/events/" + props.fileName)
       .delete()
       .then(() => {
         firebase
           .database()
-          .ref("/news/" + props.Key)
+          .ref("/events/" + props.Key)
           .remove()
           .then(() => {
             props.fetchData();
@@ -59,7 +59,7 @@ function NewsCard(props) {
     <>
       {showModal ? (
         <DeleteModal
-          message="Are you sure you want to delete this news?"
+          message="Are you sure you want to delete this event?"
           deleteCard={deleteCard}
           setShowModal={setShowModal}
         />
@@ -94,4 +94,4 @@ function NewsCard(props) {
   );
 }
 
-export default NewsCard;
+export default EventsCard;

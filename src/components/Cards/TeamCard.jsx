@@ -5,41 +5,19 @@ import { useState } from "react";
 //Components
 import DeleteModal from "../Modals/DeleteModal";
 
-function NewsCard(props) {
+function TeamCard(props) {
   const [showModal, setShowModal] = useState(false);
-
-  // editing date
-  let date, mon, year;
-  date = props.date.substr(8, 2);
-  mon = props.date.substr(5, 2);
-  year = props.date.substr(0, 4);
-  let monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  mon = monthNames[Number(mon) - 1];
-  date = date + " " + mon + " " + year;
 
   const deleteCard = () => {
     setShowModal(false);
     firebase
       .storage()
-      .ref("/news/" + props.fileName)
+      .ref("/team/" + props.fileName)
       .delete()
       .then(() => {
         firebase
           .database()
-          .ref("/news/" + props.Key)
+          .ref("/team/" + props.Key)
           .remove()
           .then(() => {
             props.fetchData();
@@ -59,7 +37,7 @@ function NewsCard(props) {
     <>
       {showModal ? (
         <DeleteModal
-          message="Are you sure you want to delete this news?"
+          message="Are you sure you want to delete this member?"
           deleteCard={deleteCard}
           setShowModal={setShowModal}
         />
@@ -73,6 +51,9 @@ function NewsCard(props) {
         >
           <i className="fas fa-trash-alt"></i> Delete
         </button>
+        <div className="absolute text-sm bg-gray-800 hover:bg-gray-500 text-white rounded-lg p-2 opacity-90 left-1 top-1">
+          <i className="fas fa-user-tie"></i> {props.priority}
+        </div>
         <div className="md:flex-shrink-0">
           <img
             src={props.imageUrl}
@@ -81,17 +62,16 @@ function NewsCard(props) {
           />
         </div>
         <div className="px-4 py-2 mt-2">
-          <h2 className="font-bold text-2xl text-gray-800 text-center tracking-normal">
-            {props.title}
+          <h2 className="font-bold text-2xl text-gray-800 text-center uppercase tracking-normal">
+            {props.name}
           </h2>
-          <div className="text-sm tracking-tighter">
-            <h2 className="text-gray-600 text-right mr-4">Date: {date}</h2>
-          </div>
-          <p className="text-md text-gray-900 px-2 mt-2">{props.content}</p>
+          <p className="text-md text-center text-gray-900 px-2 mt-1 mb-2">
+            {props.position}
+          </p>
         </div>
       </div>
     </>
   );
 }
 
-export default NewsCard;
+export default TeamCard;

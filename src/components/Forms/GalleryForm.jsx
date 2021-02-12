@@ -110,8 +110,8 @@ function GalleryForm(props) {
                     title: "Saved successfully",
                     content: "",
                   });
-                  props.setAddNew(false);
                   props.fetchData();
+                  props.setAddNew(false);
                 } else {
                   props.setAlert({
                     type: "danger",
@@ -216,16 +216,16 @@ function GalleryForm(props) {
             </div>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
               <button
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
-                onClick={(e) => formCancel(e)}
-              >
-                Cancel
-              </button>
-              <button
-                className="inline-flex justify-center py-2 px-4 ml-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                 onClick={(e) => formSubmit(e)}
               >
                 Save
+              </button>
+              <button
+                className="inline-flex justify-center py-2 px-4 ml-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
+                onClick={(e) => formCancel(e)}
+              >
+                Cancel
               </button>
             </div>
           </div>

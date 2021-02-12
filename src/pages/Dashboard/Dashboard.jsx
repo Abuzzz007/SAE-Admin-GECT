@@ -2,8 +2,11 @@ import { Switch, Route, Redirect } from "react-router-dom";
 //Components
 import Sidebar from "../../components/Sidebar/Sidebar";
 //Pages
+import Events from "../Events/Events";
 import Gallery from "../Gallery/Gallery";
+import Team from "../Team/Team";
 import News from "../News/News";
+import Registration from "../Registration/Registration";
 
 function Dashboard(props) {
   let vh = window.innerHeight * 0.01;
@@ -19,9 +22,12 @@ function Dashboard(props) {
       >
         <div className="flex-grow bg-gray-200 pb-10">
           <Switch>
+            <Route path="/events" exact component={Events} />
             <Route path="/gallery" exact component={Gallery} />
+            <Route path="/team" exact component={Team} />
             <Route path="/news" exact component={News} />
-            <Redirect path="*" to="/gallery" />
+            <Route path="/reg" exact component={Registration} />
+            <Redirect path="*" to="/events" />
           </Switch>
         </div>
         {/* Footer */}

@@ -6,11 +6,11 @@ import "firebase/storage";
 import Modal from "../Modals/ImageModal";
 import Loader from "../Loaders/FormLoader";
 
-function NewsForm(props) {
+function TeamForm(props) {
   const [state, setState] = useState({
-    title: "",
-    date: new Date().toISOString().substr(0, 10),
-    content: "",
+    name: "",
+    position: "",
+    priority: "",
     image: "",
   });
   const [showModal, setShowModal] = useState(false);
@@ -80,7 +80,7 @@ function NewsForm(props) {
     let fileName = String(Number(new Date())) + state.image.name;
     let uploadTask = firebase
       .storage()
-      .ref("/news/" + fileName)
+      .ref("/team/" + fileName)
       .put(state.image);
     uploadTask.on(
       "state_changed",
@@ -104,12 +104,12 @@ function NewsForm(props) {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           firebase
             .database()
-            .ref("/news/")
+            .ref("/team/")
             .push(
               {
-                title: state.title,
-                date: state.date,
-                content: state.content,
+                name: state.name,
+                position: state.position,
+                priority: state.priority,
                 fileName: fileName,
                 imageUrl: url,
               },
@@ -141,14 +141,14 @@ function NewsForm(props) {
     e.preventDefault();
 
     let content = "";
-    if (state.title === "") {
-      content = "Title is required";
-    } else if (state.date === "") {
-      content = "Date is required";
-    } else if (state.content === "") {
-      content = "Content is required";
+    if (state.name === "") {
+      content = "Name is required";
+    } else if (state.position === "") {
+      content = "Position is required";
+    } else if (state.priority === "") {
+      content = "Priority no is required";
     } else if (!state.image) {
-      content = "Cover photo is required";
+      content = "Image is required";
     }
 
     if (content !== "") {
@@ -178,27 +178,26 @@ function NewsForm(props) {
         ""
       )}
       <div className="mt-5 md:col-span-2">
-        <form>
+        <form autoComplete="off">
           <div className="shadow rounded-md sm:overflow-hidden relative">
             {isLoading ? <Loader uploadPercent={uploadPercent} /> : ""}
             <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-3">
                   <label
-                    htmlFor="title"
+                    htmlFor="name"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Title
+                    Name
                   </label>
                   <div className="mt-1 flex rounded-md shadow-sm">
                     <input
                       type="text"
-                      name="title"
-                      id="title"
+                      name="name"
+                      id="name"
                       className="focus:border-gray-800 flex-1 block w-full rounded-md sm:text-sm border-gray-300 border p-3"
-                      placeholder="Title"
-                      autoComplete="off"
-                      value={state.title}
+                      placeholder="Enter name"
+                      value={state.name}
                       onChange={formHandler}
                     />
                   </div>
@@ -208,18 +207,41 @@ function NewsForm(props) {
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-3 sm:col-span-3">
                   <label
-                    htmlFor="date"
+                    htmlFor="position"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Date
+                    Position
                   </label>
                   <div className="mt-1 flex rounded-md shadow-sm">
                     <input
-                      type="date"
-                      name="date"
-                      id="date"
+                      type="text"
+                      name="position"
+                      id="position"
                       className="focus:border-gray-800 flex-1 block w-full bg-white rounded-md sm:text-sm border-gray-300 border p-3"
-                      value={state.date}
+                      placeholder="Enter position"
+                      value={state.position}
+                      onChange={formHandler}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-6">
+                <div className="col-span-3 sm:col-span-3">
+                  <label
+                    htmlFor="priority"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Priority No
+                  </label>
+                  <div className="mt-1 flex rounded-md shadow-sm">
+                    <input
+                      type="number"
+                      name="priority"
+                      id="priority"
+                      className="focus:border-gray-800 flex-1 block w-full bg-white rounded-md sm:text-sm border-gray-300 border p-3"
+                      placeholder="Enter priority no"
+                      value={state.priority}
                       onChange={formHandler}
                     />
                   </div>
@@ -227,28 +249,8 @@ function NewsForm(props) {
               </div>
 
               <div>
-                <label
-                  htmlFor="content"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Content
-                </label>
-                <div className="mt-1">
-                  <textarea
-                    id="content"
-                    name="content"
-                    rows="3"
-                    className="shadow-sm focus:border-gray-800 mt-1 block w-full sm:text-sm border-gray-300 border rounded-md p-3"
-                    placeholder="Enter news content"
-                    value={state.content}
-                    onChange={formHandler}
-                  ></textarea>
-                </div>
-              </div>
-
-              <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  Cover photo
+                  Image
                   {state.image ? (
                     <>
                       <span className="font-thin italic text-gray-500 pl-2">
@@ -296,16 +298,16 @@ function NewsForm(props) {
             </div>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
               <button
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
-                onClick={(e) => formCancel(e)}
-              >
-                Cancel
-              </button>
-              <button
-                className="inline-flex justify-center py-2 px-4 ml-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                 onClick={(e) => formSubmit(e)}
               >
                 Save
+              </button>
+              <button
+                className="inline-flex justify-center py-2 px-4 ml-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
+                onClick={(e) => formCancel(e)}
+              >
+                Cancel
               </button>
             </div>
           </div>
@@ -315,4 +317,4 @@ function NewsForm(props) {
   );
 }
 
-export default NewsForm;
+export default TeamForm;

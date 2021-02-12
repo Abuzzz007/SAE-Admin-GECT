@@ -96,6 +96,20 @@ function Sidebar(props) {
           <button
             className={
               "flex items-center py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
+              (route === "/events" ? selected : unselected)
+            }
+            onClick={() => {
+              history.push("/events");
+              setRoute("/events");
+            }}
+          >
+            <i className="far fa-calendar-alt px-0.5"></i>
+            <span className="mx-4 font-medium lg:block hidden">Events</span>
+          </button>
+
+          <button
+            className={
+              "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
               (route === "/gallery" ? selected : unselected)
             }
             onClick={() => {
@@ -110,6 +124,20 @@ function Sidebar(props) {
           <button
             className={
               "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
+              (route === "/team" ? selected : unselected)
+            }
+            onClick={() => {
+              history.push("/team");
+              setRoute("/team");
+            }}
+          >
+            <i className="fas fa-users"></i>
+            <span className="mx-4 font-medium lg:block hidden">Team</span>
+          </button>
+
+          <button
+            className={
+              "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
               (route === "/news" ? selected : unselected)
             }
             onClick={() => {
@@ -119,6 +147,22 @@ function Sidebar(props) {
           >
             <i className="far fa-newspaper"></i>
             <span className="mx-4 font-medium lg:block hidden">News</span>
+          </button>
+
+          <button
+            className={
+              "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
+              (route === "/reg" ? selected : unselected)
+            }
+            onClick={() => {
+              history.push("/reg");
+              setRoute("/reg");
+            }}
+          >
+            <i className="far fa-address-card"></i>
+            <span className="mx-4 font-medium lg:block hidden">
+              Registration
+            </span>
           </button>
 
           <button
@@ -151,6 +195,20 @@ function Sidebar(props) {
           <button
             className={
               "menu-btn flex items-center py-2 px-8 w-full focus:outline-none " +
+              (route === "/events" ? selected : unselected)
+            }
+            onClick={() => {
+              history.push("/events");
+              setRoute("/events");
+            }}
+          >
+            <i className="far fa-calendar-alt px-0.5"></i>
+            <span className="mx-4 font-medium block">Events</span>
+          </button>
+
+          <button
+            className={
+              "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
               (route === "/gallery" ? selected : unselected)
             }
             onClick={() => {
@@ -165,6 +223,20 @@ function Sidebar(props) {
           <button
             className={
               "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
+              (route === "/team" ? selected : unselected)
+            }
+            onClick={() => {
+              history.push("/team");
+              setRoute("/team");
+            }}
+          >
+            <i className="fas fa-users"></i>
+            <span className="mx-4 font-medium block">Team</span>
+          </button>
+
+          <button
+            className={
+              "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
               (route === "/news" ? selected : unselected)
             }
             onClick={() => {
@@ -174,6 +246,20 @@ function Sidebar(props) {
           >
             <i className="far fa-newspaper"></i>
             <span className="mx-4 font-medium block">News</span>
+          </button>
+
+          <button
+            className={
+              "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
+              (route === "/reg" ? selected : unselected)
+            }
+            onClick={() => {
+              history.push("/reg");
+              setRoute("/reg");
+            }}
+          >
+            <i className="far fa-address-card"></i>
+            <span className="mx-4 font-medium block">Registration</span>
           </button>
 
           <button
