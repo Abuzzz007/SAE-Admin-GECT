@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 //Images
@@ -21,18 +21,6 @@ function Login(props) {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
-  const resize = () => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  };
-  resize();
-
-  useEffect(() => {
-    window.addEventListener("resize", resize);
-
-    return () => window.removeEventListener("resize", resize);
-  }, []);
 
   const formHandler = (e) => {
     if (e.target.id !== "remember") {

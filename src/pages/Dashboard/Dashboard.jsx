@@ -9,9 +9,6 @@ import News from "../News/News";
 import Registration from "../Registration/Registration";
 
 function Dashboard(props) {
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty("--vh", `${vh}px`);
-
   return (
     <>
       <div className="bg-gray-200 h-full w-full absolute"></div>

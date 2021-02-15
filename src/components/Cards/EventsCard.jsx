@@ -30,6 +30,10 @@ function EventsCard(props) {
   mon = monthNames[Number(mon) - 1];
   date = date + " " + mon + " " + year;
 
+  const editCard = () => {
+    console.log("Edit mode" + props.Key);
+  };
+
   const deleteCard = () => {
     setShowModal(false);
     firebase
@@ -66,28 +70,27 @@ function EventsCard(props) {
       ) : (
         ""
       )}
-      <div className="bg-white shadow-2xl rounded-lg mb-6 tracking-wide relative">
+
+      <div className="rounded overflow-hidden shadow-lg bg-white relative">
         <button
-          className="absolute text-sm bg-gray-800 hover:bg-gray-500 focus:outline-none text-white rounded-lg p-2 opacity-90 right-1 top-1"
+          title="Edit Event"
+          className="absolute text-sm bg-gray-100 focus:outline-none text-green-600 rounded-lg p-2 opacity-80 right-9 top-1 hover:opacity-100 border border-gray-300"
+          onClick={() => editCard()}
+        >
+          <i className="fas fa-edit"></i>
+        </button>
+        <button
+          title="Delete Event"
+          className="absolute text-sm bg-gray-100 focus:outline-none text-red-600 rounded-lg p-2 opacity-80 right-1 top-1 hover:opacity-100 border border-gray-300"
           onClick={() => setShowModal(true)}
         >
-          <i className="fas fa-trash-alt"></i> Delete
+          <i className="fas fa-trash-alt"></i>
         </button>
-        <div className="md:flex-shrink-0">
-          <img
-            src={props.imageUrl}
-            alt={props.fileName}
-            className="w-full rounded-lg rounded-b-none"
-          />
-        </div>
-        <div className="px-4 py-2 mt-2">
-          <h2 className="font-bold text-2xl text-gray-800 text-center tracking-normal">
-            {props.title}
-          </h2>
-          <div className="text-sm tracking-tighter">
-            <h2 className="text-gray-600 text-right mr-4">Date: {date}</h2>
-          </div>
-          <p className="text-md text-gray-900 px-2 mt-2">{props.content}</p>
+        <img className="w-full" src={props.imageUrl} alt={props.fileName} />
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl">{props.title}</div>
+          <h2 className="text-gray-600 text-xs text-right">Date: {date}</h2>
+          <p className="text-gray-700 text-base">{props.content}</p>
         </div>
       </div>
     </>

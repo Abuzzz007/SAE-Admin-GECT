@@ -8,6 +8,10 @@ import DeleteModal from "../Modals/DeleteModal";
 function TeamCard(props) {
   const [showModal, setShowModal] = useState(false);
 
+  const editCard = () => {
+    console.log("Edit mode" + props.Key);
+  };
+
   const deleteCard = () => {
     setShowModal(false);
     firebase
@@ -44,30 +48,35 @@ function TeamCard(props) {
       ) : (
         ""
       )}
-      <div className="bg-white shadow-2xl rounded-lg mb-6 tracking-wide relative">
+
+      <div className="rounded overflow-hidden shadow-lg bg-white relative">
         <button
-          className="absolute text-sm bg-gray-800 hover:bg-gray-500 focus:outline-none text-white rounded-lg p-2 opacity-90 right-1 top-1"
+          title="Edit Member"
+          className="absolute text-sm bg-gray-100 focus:outline-none text-green-600 rounded-lg p-2 opacity-80 right-9 top-1 hover:opacity-100 border border-gray-300"
+          onClick={() => editCard()}
+        >
+          <i className="fas fa-edit"></i>
+        </button>
+        <button
+          title="Delete Member"
+          className="absolute text-sm bg-gray-100 focus:outline-none text-red-600 rounded-lg p-2 opacity-80 right-1 top-1 hover:opacity-100 border border-gray-300"
           onClick={() => setShowModal(true)}
         >
-          <i className="fas fa-trash-alt"></i> Delete
+          <i className="fas fa-trash-alt"></i>
         </button>
-        <div className="absolute text-sm bg-gray-800 hover:bg-gray-500 text-white rounded-lg p-2 opacity-90 left-1 top-1">
+        <div className="absolute text-sm bg-gray-100 text-black rounded-lg p-2 opacity-90 left-1 top-1 hover:opacity-100">
           <i className="fas fa-user-tie"></i> {props.priority}
         </div>
-        <div className="md:flex-shrink-0">
-          <img
-            src={props.imageUrl}
-            alt={props.fileName}
-            className="w-full rounded-lg rounded-b-none"
-          />
-        </div>
-        <div className="px-4 py-2 mt-2">
-          <h2 className="font-bold text-2xl text-gray-800 text-center uppercase tracking-normal">
-            {props.name}
-          </h2>
-          <p className="text-md text-center text-gray-900 px-2 mt-1 mb-2">
-            {props.position}
-          </p>
+        <img className="w-full" src={props.imageUrl} alt={props.fileName} />
+        <div
+          className="px-3 py-1 absolute bottom-0 w-full text-white"
+          style={{
+            background:
+              "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7206232834930848) 60%, rgba(0,0,0,0) 100%)",
+          }}
+        >
+          <div className="font-bold text-xl">{props.name}</div>
+          <p className="text-base">{props.position}</p>
         </div>
       </div>
     </>

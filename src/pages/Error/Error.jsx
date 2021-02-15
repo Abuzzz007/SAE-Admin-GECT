@@ -4,9 +4,6 @@ import Forbidden from "../../assets/Forbidden.svg";
 function Error() {
   const history = useHistory();
 
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty("--vh", `${vh}px`);
-
   return (
     <div
       className="h-screen w-screen bg-gray-200 flex items-center"

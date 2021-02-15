@@ -30,6 +30,18 @@ function App() {
     }
   }, []);
 
+  const resize = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  };
+  resize();
+
+  useEffect(() => {
+    window.addEventListener("resize", resize);
+
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
   const loginHandler = () => {
     let localData = window.localStorage.getItem("auth_data");
     if (!localData) localData = window.sessionStorage.getItem("auth_data");
@@ -46,6 +58,19 @@ function App() {
           setTimeout(() => {
             loader.remove();
           }, 500);
+        }
+      })
+      .catch((err) => {
+        if (err.code === "auth/user-not-found") {
+          window.sessionStorage.clear();
+          window.localStorage.clear();
+          let loader = document.getElementById("loading-spinner");
+          if (loader) {
+            loader.style.opacity = "0";
+            setTimeout(() => {
+              loader.remove();
+            }, 500);
+          }
         }
       });
   };

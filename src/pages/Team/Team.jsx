@@ -74,24 +74,27 @@ function Team() {
           )}
         </div>
         {isLoading ? <Loader /> : ""}
-        {data
-          ? keys
-            ? data.map((data, i) => (
-                <div className="mx-auto px-4 pt-8 max-w-md mt-5" key={i}>
-                  <TeamCard
-                    Key={keys[i]}
-                    name={data.name}
-                    position={data.position}
-                    priority={data.priority}
-                    imageUrl={data.imageUrl}
-                    fileName={data.fileName}
-                    fetchData={fetchData}
-                    setAlert={setAlert}
-                  />
-                </div>
-              ))
-            : ""
-          : ""}
+
+        <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+          {data
+            ? keys
+              ? data.map((data, i) => (
+                  <div key={i}>
+                    <TeamCard
+                      Key={keys[i]}
+                      name={data.name}
+                      position={data.position}
+                      priority={data.priority}
+                      imageUrl={data.imageUrl}
+                      fileName={data.fileName}
+                      fetchData={fetchData}
+                      setAlert={setAlert}
+                    />
+                  </div>
+                ))
+              : ""
+            : ""}
+        </div>
       </div>
     </>
   );
