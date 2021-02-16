@@ -71,12 +71,16 @@ function RegistrationCard(props) {
       <div className="rounded overflow-hidden shadow-lg bg-white relative">
         {metadata ? (
           <div className="bg-gray-100 w-full sm:max-w-full sm:flex border-b border-gray-300">
-            <div
-              className="h-48 sm:h-auto sm:w-48 flex-none bg-cover rounded-t sm:rounded-t-none sm:rounded-l text-center overflow-hidden bg-center"
-              style={{
-                backgroundImage: `url(${metadata.image[0].url})`,
-              }}
-            ></div>
+            {metadata.image ? (
+              <div
+                className="h-48 sm:h-auto sm:w-48 flex-none bg-cover rounded-t sm:rounded-t-none sm:rounded-l text-center overflow-hidden bg-center"
+                style={{
+                  backgroundImage: `url(${metadata.image[0].url})`,
+                }}
+              ></div>
+            ) : (
+              ""
+            )}
             <div className="rounded-b sm:rounded-b-none sm:rounded-r p-4 flex flex-col justify-between leading-normal">
               <div>
                 <div className="text-gray-900 font-bold text-xl mb-2">
@@ -107,6 +111,7 @@ function RegistrationCard(props) {
           <i className="fas fa-trash-alt"></i>
         </button>
         <div className="px-6 py-4 mr-12">
+          <strong>Link:</strong>
           <a href={props.link} target="_blank" rel="noreferrer">
             <p className="text-base break-all text-blue-700 hover:text-blue-400">
               {props.link}

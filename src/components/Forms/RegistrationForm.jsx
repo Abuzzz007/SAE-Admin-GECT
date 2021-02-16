@@ -50,9 +50,20 @@ function RegistrationForm(props) {
   const formSubmit = (e) => {
     e.preventDefault();
 
+    const re = new RegExp(
+      "^(https?:\\/\\/)?" +
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
+        "((\\d{1,3}\\.){3}\\d{1,3}))" +
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +
+        "(\\?[;&a-z\\d%_.~+=-]*)?" +
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    );
     let content = "";
     if (state.link === "") {
       content = "Link is required";
+    } else if (!re.test(state.link)) {
+      content = "Enter a valid link";
     }
 
     if (content !== "") {

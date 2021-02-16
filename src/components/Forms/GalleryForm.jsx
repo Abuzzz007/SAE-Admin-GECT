@@ -8,6 +8,7 @@ import Loader from "../Loaders/FormLoader";
 
 function GalleryForm(props) {
   const [state, setState] = useState({
+    priority: "",
     image: "",
   });
   const [showModal, setShowModal] = useState(false);
@@ -48,23 +49,27 @@ function GalleryForm(props) {
   };
 
   const formHandler = (e) => {
-    let file = e.target.files[0];
-    if (!file) {
-      return;
-    } else if (
-      file.type !== "image/png" &&
-      file.type !== "image/jpg" &&
-      file.type !== "image/jpeg" &&
-      file.type !== "image/gif"
-    ) {
-      props.setAlert({
-        type: "danger",
-        title: "Error!",
-        content: "Unsupported file type",
-      });
-      return;
+    if (e.target.id === "image-upload") {
+      let file = e.target.files[0];
+      if (!file) {
+        return;
+      } else if (
+        file.type !== "image/png" &&
+        file.type !== "image/jpg" &&
+        file.type !== "image/jpeg" &&
+        file.type !== "image/gif"
+      ) {
+        props.setAlert({
+          type: "danger",
+          title: "Error!",
+          content: "Unsupported file type",
+        });
+        return;
+      }
+      setState({ ...state, image: file });
+    } else {
+      setState({ ...state, [e.target.id]: e.target.value });
     }
-    setState({ ...state, image: file });
   };
 
   const addData = () => {
@@ -100,6 +105,7 @@ function GalleryForm(props) {
             .ref("/gallery/")
             .push(
               {
+                priority: state.priority,
                 fileName: fileName,
                 imageUrl: url,
               },
@@ -131,7 +137,9 @@ function GalleryForm(props) {
     e.preventDefault();
 
     let content = "";
-    if (!state.image) {
+    if (state.priority === "") {
+      content = "Priority no is required";
+    } else if (!state.image) {
       content = "Image is required";
     }
 
@@ -166,6 +174,28 @@ function GalleryForm(props) {
           <div className="shadow rounded-md sm:overflow-hidden relative">
             {isLoading ? <Loader uploadPercent={uploadPercent} /> : ""}
             <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
+              <div className="grid grid-cols-3 gap-6">
+                <div className="col-span-3 sm:col-span-3">
+                  <label
+                    htmlFor="priority"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Priority No
+                  </label>
+                  <div className="mt-1 flex rounded-md shadow-sm">
+                    <input
+                      type="number"
+                      name="priority"
+                      id="priority"
+                      className="focus:border-gray-800 flex-1 block w-full bg-white rounded-md sm:text-sm border-gray-300 border p-3"
+                      placeholder="Enter priority no"
+                      value={state.priority}
+                      onChange={formHandler}
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Add Image

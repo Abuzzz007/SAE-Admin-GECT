@@ -64,6 +64,9 @@ function GalleryCard(props) {
         >
           <i className="fas fa-trash-alt"></i>
         </button>
+        <div className="absolute text-sm bg-gray-100 text-black rounded-lg p-2 opacity-90 left-1 top-1 hover:opacity-100">
+          <i className="far fa-eye"></i> {props.priority}
+        </div>
         <img className="w-full" src={props.imageUrl} alt={props.fileName} />
       </div>
     </>
