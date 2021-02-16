@@ -93,7 +93,7 @@ function News() {
       ) : (
         ""
       )}
-      <div className="left-0 sm:left-14 mt-14 sm:mt-0 lg:left-64 right-0 bg-gray-100 rounded-b-lg shadow fixed z-10">
+      <div className="left-0 sm:left-14 mt-14 sm:mt-0 lg:left-64 right-0 bg-gray-100 rounded-b-lg shadow fixed z-20">
         <div className="p-1 pl-4 sm:p-4 text-lg sm:text-2xl">News</div>
       </div>
       <div className="flex flex-wrap pt-24 sm:pt-16 z-0">
@@ -128,11 +128,13 @@ function News() {
               )}
             </>
           ) : (
-            <NewsForm
-              setAddNew={setAddNew}
-              setAlert={setAlert}
-              fetchData={fetchData}
-            />
+            <div className="p-4 mx-auto" style={{ maxWidth: "35rem" }}>
+              <NewsForm
+                setAddNew={setAddNew}
+                setAlert={setAlert}
+                fetchData={fetchData}
+              />
+            </div>
           )}
         </div>
         {isLoading ? <Loader /> : ""}

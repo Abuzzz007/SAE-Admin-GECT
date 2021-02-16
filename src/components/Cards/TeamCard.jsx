@@ -4,13 +4,11 @@ import "firebase/storage";
 import { useState } from "react";
 //Components
 import DeleteModal from "../Modals/DeleteModal";
+import TeamForm from "../Forms/TeamForm";
 
 function TeamCard(props) {
   const [showModal, setShowModal] = useState(false);
-
-  const editCard = () => {
-    console.log("Edit mode" + props.Key);
-  };
+  const [edit, setEdit] = useState(false);
 
   const deleteCard = () => {
     setShowModal(false);
@@ -49,36 +47,50 @@ function TeamCard(props) {
         ""
       )}
 
-      <div className="rounded overflow-hidden shadow-lg bg-white relative">
-        <button
-          title="Edit Member"
-          className="absolute text-sm bg-gray-100 focus:outline-none text-green-600 rounded-lg p-2 opacity-80 right-9 top-1 hover:opacity-100 border border-gray-300"
-          onClick={() => editCard()}
-        >
-          <i className="fas fa-edit"></i>
-        </button>
-        <button
-          title="Delete Member"
-          className="absolute text-sm bg-gray-100 focus:outline-none text-red-600 rounded-lg p-2 opacity-80 right-1 top-1 hover:opacity-100 border border-gray-300"
-          onClick={() => setShowModal(true)}
-        >
-          <i className="fas fa-trash-alt"></i>
-        </button>
-        <div className="absolute text-sm bg-gray-100 text-black rounded-lg p-2 opacity-90 left-1 top-1 hover:opacity-100">
-          <i className="fas fa-user-tie"></i> {props.priority}
+      {!edit ? (
+        <div className="rounded overflow-hidden shadow-lg bg-white relative">
+          <button
+            title="Edit Member"
+            className="absolute text-sm bg-gray-100 focus:outline-none text-green-600 rounded-lg p-2 opacity-80 right-9 top-1 hover:opacity-100 border border-gray-300"
+            onClick={() => setEdit(true)}
+          >
+            <i className="fas fa-edit"></i>
+          </button>
+          <button
+            title="Delete Member"
+            className="absolute text-sm bg-gray-100 focus:outline-none text-red-600 rounded-lg p-2 opacity-80 right-1 top-1 hover:opacity-100 border border-gray-300"
+            onClick={() => setShowModal(true)}
+          >
+            <i className="fas fa-trash-alt"></i>
+          </button>
+          <div className="absolute text-sm bg-gray-100 text-black rounded-lg p-2 opacity-90 left-1 top-1 hover:opacity-100">
+            <i className="fas fa-user-tie"></i> {props.priority}
+          </div>
+          <img className="w-full" src={props.imageUrl} alt={props.fileName} />
+          <div
+            className="px-3 py-1 absolute bottom-0 w-full text-white"
+            style={{
+              background:
+                "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7206232834930848) 60%, rgba(0,0,0,0) 100%)",
+            }}
+          >
+            <div className="font-bold text-xl">{props.name}</div>
+            <p className="text-base">{props.position}</p>
+          </div>
         </div>
-        <img className="w-full" src={props.imageUrl} alt={props.fileName} />
-        <div
-          className="px-3 py-1 absolute bottom-0 w-full text-white"
-          style={{
-            background:
-              "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7206232834930848) 60%, rgba(0,0,0,0) 100%)",
-          }}
-        >
-          <div className="font-bold text-xl">{props.name}</div>
-          <p className="text-base">{props.position}</p>
-        </div>
-      </div>
+      ) : (
+        <TeamForm
+          setAlert={props.setAlert}
+          fetchData={props.fetchData}
+          setAddNew={setEdit}
+          Key={props.Key}
+          name={props.name}
+          position={props.position}
+          priority={props.priority}
+          imageUrl={props.imageUrl}
+          fileName={props.fileName}
+        />
+      )}
     </>
   );
 }

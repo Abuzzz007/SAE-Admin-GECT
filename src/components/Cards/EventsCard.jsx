@@ -4,9 +4,11 @@ import "firebase/storage";
 import { useState } from "react";
 //Components
 import DeleteModal from "../Modals/DeleteModal";
+import EventsForm from "../Forms/EventsForm";
 
 function EventsCard(props) {
   const [showModal, setShowModal] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   // editing date
   let date, mon, year;
@@ -29,10 +31,6 @@ function EventsCard(props) {
   ];
   mon = monthNames[Number(mon) - 1];
   date = date + " " + mon + " " + year;
-
-  const editCard = () => {
-    console.log("Edit mode" + props.Key);
-  };
 
   const deleteCard = () => {
     setShowModal(false);
@@ -71,28 +69,42 @@ function EventsCard(props) {
         ""
       )}
 
-      <div className="rounded overflow-hidden shadow-lg bg-white relative">
-        <button
-          title="Edit Event"
-          className="absolute text-sm bg-gray-100 focus:outline-none text-green-600 rounded-lg p-2 opacity-80 right-9 top-1 hover:opacity-100 border border-gray-300"
-          onClick={() => editCard()}
-        >
-          <i className="fas fa-edit"></i>
-        </button>
-        <button
-          title="Delete Event"
-          className="absolute text-sm bg-gray-100 focus:outline-none text-red-600 rounded-lg p-2 opacity-80 right-1 top-1 hover:opacity-100 border border-gray-300"
-          onClick={() => setShowModal(true)}
-        >
-          <i className="fas fa-trash-alt"></i>
-        </button>
-        <img className="w-full" src={props.imageUrl} alt={props.fileName} />
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl">{props.title}</div>
-          <h2 className="text-gray-600 text-xs text-right">Date: {date}</h2>
-          <p className="text-gray-700 text-base">{props.content}</p>
+      {!edit ? (
+        <div className="rounded overflow-hidden shadow-lg bg-white relative">
+          <button
+            title="Edit Event"
+            className="absolute text-sm bg-gray-100 focus:outline-none text-green-600 rounded-lg p-2 opacity-80 right-9 top-1 hover:opacity-100 border border-gray-300"
+            onClick={() => setEdit(true)}
+          >
+            <i className="fas fa-edit"></i>
+          </button>
+          <button
+            title="Delete Event"
+            className="absolute text-sm bg-gray-100 focus:outline-none text-red-600 rounded-lg p-2 opacity-80 right-1 top-1 hover:opacity-100 border border-gray-300"
+            onClick={() => setShowModal(true)}
+          >
+            <i className="fas fa-trash-alt"></i>
+          </button>
+          <img className="w-full" src={props.imageUrl} alt={props.fileName} />
+          <div className="px-6 py-4">
+            <div className="font-bold text-xl">{props.title}</div>
+            <h2 className="text-gray-600 text-xs text-right">Date: {date}</h2>
+            <p className="text-gray-700 text-base">{props.content}</p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <EventsForm
+          setAlert={props.setAlert}
+          fetchData={props.fetchData}
+          setAddNew={setEdit}
+          Key={props.Key}
+          title={props.title}
+          date={props.date}
+          content={props.content}
+          imageUrl={props.imageUrl}
+          fileName={props.fileName}
+        />
+      )}
     </>
   );
 }

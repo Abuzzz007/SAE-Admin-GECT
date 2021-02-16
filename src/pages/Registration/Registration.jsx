@@ -44,7 +44,7 @@ function Registration() {
 
   return (
     <>
-      <div className="left-0 sm:left-14 mt-14 sm:mt-0 lg:left-64 right-0 bg-gray-100 rounded-b-lg shadow fixed z-10">
+      <div className="left-0 sm:left-14 mt-14 sm:mt-0 lg:left-64 right-0 bg-gray-100 rounded-b-lg shadow fixed z-20">
         <div className="p-1 pl-4 sm:p-4 text-lg sm:text-2xl">Registration</div>
       </div>
       <div className="flex flex-wrap pt-24 sm:pt-16 z-0">
@@ -65,11 +65,13 @@ function Registration() {
                   <i className="fas fa-plus"></i> Add Link
                 </button>
               ) : (
-                <RegistrationForm
-                  setAddNew={setAddNew}
-                  setAlert={setAlert}
-                  fetchData={fetchData}
-                />
+                <div className="p-4" style={{ maxWidth: "40rem" }}>
+                  <RegistrationForm
+                    setAddNew={setAddNew}
+                    setAlert={setAlert}
+                    fetchData={fetchData}
+                  />
+                </div>
               )
             ) : (
               ""
@@ -79,20 +81,25 @@ function Registration() {
           )}
         </div>
         {isLoading ? <Loader /> : ""}
-        {data
-          ? keys
-            ? data.map((data, i) => (
-                <div className="mx-auto px-4 mt-5" key={i}>
-                  <RegistrationCard
-                    Key={keys[i]}
-                    link={data.link}
-                    fetchData={fetchData}
-                    setAlert={setAlert}
-                  />
-                </div>
-              ))
-            : ""
-          : ""}
+
+        <div className="w-full">
+          <div className="p-10" style={{ maxWidth: "40rem" }}>
+            {data
+              ? keys
+                ? data.map((data, i) => (
+                    <div key={i}>
+                      <RegistrationCard
+                        Key={keys[i]}
+                        link={data.link}
+                        fetchData={fetchData}
+                        setAlert={setAlert}
+                      />
+                    </div>
+                  ))
+                : ""
+              : ""}
+          </div>
+        </div>
       </div>
     </>
   );

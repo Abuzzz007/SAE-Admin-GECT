@@ -23,7 +23,7 @@ function Modal(props) {
         <div className="w-screen p-5 sm:p-10">
           <img
             className="w-full max-w-screen-md max-h-screen m-auto pointer-events-auto"
-            src={URL.createObjectURL(props.image)}
+            src={props.imageUrl}
             alt="pic"
             style={{ touchAction: "auto" }}
           />
