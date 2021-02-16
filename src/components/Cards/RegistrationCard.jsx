@@ -110,7 +110,7 @@ function RegistrationCard(props) {
         >
           <i className="fas fa-trash-alt"></i>
         </button>
-        <div className="px-6 py-4 mr-12">
+        <div className="px-6 py-4">
           <strong>Link:</strong>
           <a href={props.link} target="_blank" rel="noreferrer">
             <p className="text-base break-all text-blue-700 hover:text-blue-400">
