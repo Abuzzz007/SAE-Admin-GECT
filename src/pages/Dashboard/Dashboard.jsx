@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 //Pages
 import Events from "../Events/Events";
 import Gallery from "../Gallery/Gallery";
+import Achievements from "../Achievements/Achievements";
 import Team from "../Team/Team";
 import News from "../News/News";
 import Registration from "../Registration/Registration";
@@ -21,9 +22,10 @@ function Dashboard(props) {
           <Switch>
             <Route path="/events" exact component={Events} />
             <Route path="/gallery" exact component={Gallery} />
+            <Route path="/achievements" exact component={Achievements} />
             <Route path="/team" exact component={Team} />
             <Route path="/news" exact component={News} />
-            <Route path="/reg" exact component={Registration} />
+            <Route path="/registration" exact component={Registration} />
             <Redirect path="*" to="/events" />
           </Switch>
         </div>

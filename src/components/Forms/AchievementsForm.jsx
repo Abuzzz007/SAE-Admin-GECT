@@ -8,12 +8,11 @@ import Loader from "../Loaders/FormLoader";
 //Images
 import DummyBg from "../../assets/dummyBg.png";
 
-function NewsForm(props) {
+function AchievementsForm(props) {
   const [state, setState] = useState({
     title: "",
-    date: new Date().toISOString().substr(0, 10),
     content: "",
-    image: "",
+    priority: "",
     imageUrl: DummyBg,
   });
   const [edit, setEdit] = useState(false);
@@ -26,8 +25,8 @@ function NewsForm(props) {
       setEdit(true);
       setState({
         title: props.title,
-        date: props.date,
         content: props.content,
+        priority: props.priority,
         image: "",
         imageUrl: props.imageUrl,
       });
@@ -97,7 +96,7 @@ function NewsForm(props) {
     let fileName = String(Number(new Date())) + state.image.name;
     let uploadTask = firebase
       .storage()
-      .ref("/news/" + fileName)
+      .ref("/achievements/" + fileName)
       .put(state.image);
     uploadTask.on(
       "state_changed",
@@ -121,12 +120,12 @@ function NewsForm(props) {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           firebase
             .database()
-            .ref("/news/")
+            .ref("/achievements/")
             .push(
               {
                 title: state.title,
-                date: state.date,
                 content: state.content,
+                priority: state.priority,
                 fileName: fileName,
                 imageUrl: url,
               },
@@ -162,12 +161,12 @@ function NewsForm(props) {
       setUploadPercent(101);
       firebase
         .database()
-        .ref("/news/" + props.Key)
+        .ref("/achievements/" + props.Key)
         .update(
           {
             title: state.title,
-            date: state.date,
             content: state.content,
+            priority: state.priority,
             fileName: props.fileName,
             imageUrl: props.imageUrl,
           },
@@ -194,13 +193,13 @@ function NewsForm(props) {
       //if image changed
       firebase
         .storage()
-        .ref("/news/" + props.fileName)
+        .ref("/achievements/" + props.fileName)
         .delete()
         .then(() => {
           let fileName = String(Number(new Date())) + state.image.name;
           let uploadTask = firebase
             .storage()
-            .ref("/news/" + fileName)
+            .ref("/achievements/" + fileName)
             .put(state.image);
           uploadTask.on(
             "state_changed",
@@ -224,12 +223,12 @@ function NewsForm(props) {
               uploadTask.snapshot.ref.getDownloadURL().then((url) => {
                 firebase
                   .database()
-                  .ref("/news/" + props.Key)
+                  .ref("/achievements/" + props.Key)
                   .update(
                     {
                       title: state.title,
-                      date: state.date,
                       content: state.content,
+                      priority: state.priority,
                       fileName: fileName,
                       imageUrl: url,
                     },
@@ -273,20 +272,20 @@ function NewsForm(props) {
     if (!edit) {
       if (state.title === "") {
         content = "Title is required";
-      } else if (state.date === "") {
-        content = "Date is required";
       } else if (state.content === "") {
         content = "Content is required";
+      } else if (state.priority === "") {
+        content = "Priority no is required";
       } else if (!state.image) {
-        content = "Cover photo is required";
+        content = "Image is required";
       }
     } else {
       if (state.title === "") {
         content = "Title is required";
-      } else if (state.date === "") {
-        content = "Date is required";
       } else if (state.content === "") {
         content = "Content is required";
+      } else if (state.priority === "") {
+        content = "Priority no is required";
       }
     }
 
@@ -394,23 +393,6 @@ function NewsForm(props) {
                 </div>
 
                 <label
-                  htmlFor="date"
-                  className="block text-sm font-medium text-gray-700 mt-4"
-                >
-                  Date
-                </label>
-                <div className="mt-1 flex rounded-md shadow-sm">
-                  <input
-                    type="date"
-                    name="date"
-                    id="date"
-                    className="focus:border-gray-800 flex-1 block w-full bg-white rounded-md sm:text-sm border-gray-300 border p-3"
-                    value={state.date}
-                    onChange={formHandler}
-                  />
-                </div>
-
-                <label
                   htmlFor="content"
                   className="block text-sm font-medium text-gray-700 mt-4"
                 >
@@ -426,6 +408,24 @@ function NewsForm(props) {
                     value={state.content}
                     onChange={formHandler}
                   ></textarea>
+                </div>
+
+                <label
+                  htmlFor="priority"
+                  className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                  Priority No
+                </label>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                  <input
+                    type="number"
+                    name="priority"
+                    id="priority"
+                    className="focus:border-gray-800 flex-1 block w-full bg-white rounded-md sm:text-sm border-gray-300 border p-3"
+                    placeholder="Enter priority no"
+                    value={state.priority}
+                    onChange={formHandler}
+                  />
                 </div>
               </div>
 
@@ -451,4 +451,4 @@ function NewsForm(props) {
   );
 }
 
-export default NewsForm;
+export default AchievementsForm;

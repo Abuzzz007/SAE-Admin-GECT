@@ -318,7 +318,7 @@ function EventsForm(props) {
         ""
       )}
       <div>
-        <form>
+        <form autoComplete="off">
           <div className="shadow rounded-md sm:overflow-hidden relative">
             {isLoading ? <Loader uploadPercent={uploadPercent} /> : ""}
 
@@ -388,7 +388,6 @@ function EventsForm(props) {
                     id="title"
                     className="focus:border-gray-800 flex-1 block w-full rounded-md sm:text-sm border-gray-300 border p-3"
                     placeholder="Title"
-                    autoComplete="off"
                     value={state.title}
                     onChange={formHandler}
                   />
@@ -423,7 +422,7 @@ function EventsForm(props) {
                     name="content"
                     rows="3"
                     className="shadow-sm focus:border-gray-800 mt-1 block w-full sm:text-sm border-gray-300 border rounded-md p-3"
-                    placeholder="Enter event content"
+                    placeholder="Enter content"
                     value={state.content}
                     onChange={formHandler}
                   ></textarea>

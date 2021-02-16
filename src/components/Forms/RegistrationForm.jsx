@@ -131,7 +131,7 @@ function RegistrationForm(props) {
   return (
     <>
       <div>
-        <form>
+        <form autoComplete="off">
           <div className="shadow rounded-md sm:overflow-hidden relative">
             {isLoading ? <Loader uploadPercent={uploadPercent} /> : ""}
 
@@ -150,8 +150,7 @@ function RegistrationForm(props) {
                     id="link"
                     className="focus:border-gray-800 flex-1 block w-full rounded-md sm:text-sm border-gray-300 border p-3"
                     placeholder="Registration link"
-                    autoComplete="off"
-                    value={state.title}
+                    value={state.link}
                     onChange={formHandler}
                   />
                 </div>

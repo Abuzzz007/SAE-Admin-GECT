@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/database";
 //Components
-import NewsCard from "../../components/Cards/NewsCard";
-import NewsForm from "../../components/Forms/NewsForm";
+import AchievementsCard from "../../components/Cards/AchievementsCard";
+import AchievementsForm from "../../components/Forms/AchievementsForm";
 import Alert from "../../components/Alerts/Alert";
 import Loader from "../../components/Loaders/ContentLoader";
 import DeleteModal from "../../components/Modals/DeleteModal";
 
-function News() {
+function Achievements() {
   const [data, setData] = useState(null);
   const [keys, setKeys] = useState(null);
   const [addNew, setAddNew] = useState(false);
@@ -24,15 +24,13 @@ function News() {
     setIsLoading(true);
     firebase
       .database()
-      .ref("/news/")
+      .ref("/achievements/")
       .once("value")
       .then((snapshot) => {
         let data = snapshot.val();
         if (data) {
           let sortedData = Object.fromEntries(
-            Object.entries(data).sort(
-              (a, b) => new Date(b[1].date) - new Date(a[1].date)
-            )
+            Object.entries(data).sort((a, b) => a[1].priority - b[1].priority)
           );
           setData(Object.values(sortedData));
           setKeys(Object.keys(sortedData));
@@ -58,12 +56,12 @@ function News() {
 
       firebase
         .storage()
-        .ref("/news/" + fileName)
+        .ref("/achievements/" + fileName)
         .delete()
         .then(() => {
           firebase
             .database()
-            .ref("/news/" + Key)
+            .ref("/achievements/" + Key)
             .remove()
             .then(() => {
               fetchData();
@@ -86,7 +84,7 @@ function News() {
     <>
       {showModal ? (
         <DeleteModal
-          message="Are you sure you want to delete all news?"
+          message="Are you sure you want to delete all achievements?"
           deleteCard={deleteAllCards}
           setShowModal={setShowModal}
         />
@@ -94,7 +92,7 @@ function News() {
         ""
       )}
       <div className="left-0 sm:left-14 mt-14 sm:mt-0 lg:left-64 right-0 bg-gray-100 rounded-b-lg shadow fixed z-20">
-        <div className="p-1 pl-4 sm:p-4 text-lg sm:text-2xl">News</div>
+        <div className="p-1 pl-4 sm:p-4 text-lg sm:text-2xl">Achievements</div>
       </div>
       <div className="flex flex-wrap pt-24 sm:pt-16 z-0">
         <Alert
@@ -110,7 +108,7 @@ function News() {
                 className="bg-gray-800 hover:bg-gray-600 text-white py-2 px-4 mt-5 rounded focus:outline-none"
                 onClick={() => setAddNew(true)}
               >
-                <i className="fas fa-plus"></i> Add News
+                <i className="fas fa-plus"></i> Add Achievement
               </button>
               {data ? (
                 keys ? (
@@ -129,7 +127,7 @@ function News() {
             </>
           ) : (
             <div className="p-4 mx-auto" style={{ maxWidth: "35rem" }}>
-              <NewsForm
+              <AchievementsForm
                 setAddNew={setAddNew}
                 setAlert={setAlert}
                 fetchData={fetchData}
@@ -144,11 +142,11 @@ function News() {
             ? keys
               ? data.map((data, i) => (
                   <div key={i}>
-                    <NewsCard
+                    <AchievementsCard
                       Key={keys[i]}
                       title={data.title}
-                      date={data.date}
                       content={data.content}
+                      priority={data.priority}
                       imageUrl={data.imageUrl}
                       fileName={data.fileName}
                       fetchData={fetchData}
@@ -164,4 +162,4 @@ function News() {
   );
 }
 
-export default News;
+export default Achievements;

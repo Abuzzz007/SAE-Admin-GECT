@@ -124,6 +124,22 @@ function Sidebar(props) {
           <button
             className={
               "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
+              (route === "/achievements" ? selected : unselected)
+            }
+            onClick={() => {
+              history.push("/achievements");
+              setRoute("/achievements");
+            }}
+          >
+            <i className="fas fa-trophy"></i>
+            <span className="mx-4 font-medium lg:block hidden">
+              Achievements
+            </span>
+          </button>
+
+          <button
+            className={
+              "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
               (route === "/team" ? selected : unselected)
             }
             onClick={() => {
@@ -152,11 +168,11 @@ function Sidebar(props) {
           <button
             className={
               "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
-              (route === "/reg" ? selected : unselected)
+              (route === "/registration" ? selected : unselected)
             }
             onClick={() => {
-              history.push("/reg");
-              setRoute("/reg");
+              history.push("/registration");
+              setRoute("/registration");
             }}
           >
             <i className="far fa-address-card"></i>
@@ -223,6 +239,20 @@ function Sidebar(props) {
           <button
             className={
               "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
+              (route === "/achievements" ? selected : unselected)
+            }
+            onClick={() => {
+              history.push("/achievements");
+              setRoute("/achievements");
+            }}
+          >
+            <i className="fas fa-trophy"></i>
+            <span className="mx-4 font-medium block">Achievements</span>
+          </button>
+
+          <button
+            className={
+              "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
               (route === "/team" ? selected : unselected)
             }
             onClick={() => {
@@ -251,11 +281,11 @@ function Sidebar(props) {
           <button
             className={
               "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
-              (route === "/reg" ? selected : unselected)
+              (route === "/registration" ? selected : unselected)
             }
             onClick={() => {
-              history.push("/reg");
-              setRoute("/reg");
+              history.push("/registration");
+              setRoute("/registration");
             }}
           >
             <i className="far fa-address-card"></i>

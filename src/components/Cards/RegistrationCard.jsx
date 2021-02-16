@@ -111,7 +111,7 @@ function RegistrationCard(props) {
           <div className="px-6 py-4">
             <strong>Link:</strong>
             <a href={props.link} target="_blank" rel="noreferrer">
-              <p className="text-base break-all text-blue-700 hover:text-blue-400">
+              <p className="text-base break-all text-blue-700 hover:text-blue-600 hover:underline">
                 {props.link}
               </p>
             </a>
