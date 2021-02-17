@@ -21,6 +21,7 @@ function Login(props) {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [passVisible, setPassVisible] = useState(false);
 
   const formHandler = (e) => {
     if (e.target.id !== "remember") {
@@ -161,12 +162,29 @@ function Login(props) {
                       </label>
                       <input
                         id="password"
-                        type="password"
-                        className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                        type={passVisible ? "text" : "password"}
+                        className="relative px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                         placeholder="Password"
                         value={state.password}
                         onChange={formHandler}
                       />
+                      <button
+                        className="absolute right-2 top-8 p-1 h-6 w-7 bg-gray-200 hover:bg-gray-300 outline-none focus:outline-none"
+                        style={{ borderRadius: "50%" }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setPassVisible(!passVisible);
+                        }}
+                      >
+                        <div className="relative">
+                          {!passVisible ? (
+                            <i className="far fa-eye absolute transform -translate-x-1/2 -translate-y-1/2"></i>
+                          ) : (
+                            <i className="far fa-eye-slash absolute transform -translate-x-1/2 -translate-y-1/2"></i>
+                          )}
+                        </div>
+                      </button>
+
                       {valid.password ? (
                         ""
                       ) : (
