@@ -69,7 +69,9 @@ function AchievementsCard(props) {
           <img className="w-full" src={props.imageUrl} alt={props.fileName} />
           <div className="px-6 py-4">
             <div className="font-bold text-xl">{props.title}</div>
-            <p className="text-gray-700 text-base">{props.content}</p>
+            <p className="text-gray-700 text-base whitespace-pre-line">
+              {props.content}
+            </p>
           </div>
         </div>
       ) : (

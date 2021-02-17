@@ -4,8 +4,9 @@ import "firebase/database";
 //Components
 import Loader from "../Loaders/FormLoader";
 
-function RegistrationForm(props) {
+function AnnouncementForm(props) {
   const [state, setState] = useState({
+    message: "",
     link: "",
   });
   const [edit, setEdit] = useState(false);
@@ -16,6 +17,7 @@ function RegistrationForm(props) {
     if (props.Key) {
       setEdit(true);
       setState({
+        message: props.message,
         link: props.link,
       });
     }
@@ -31,9 +33,10 @@ function RegistrationForm(props) {
 
     firebase
       .database()
-      .ref("/reg/")
+      .ref("/announcement/")
       .push(
         {
+          message: state.message,
           link: state.link,
         },
         (err) => {
@@ -63,9 +66,10 @@ function RegistrationForm(props) {
 
     firebase
       .database()
-      .ref("/reg/" + props.Key)
+      .ref("/announcement/" + props.Key)
       .update(
         {
+          message: state.message,
           link: state.link,
         },
         (err) => {
@@ -102,7 +106,9 @@ function RegistrationForm(props) {
       "i"
     );
     let content = "";
-    if (state.link === "") {
+    if (state.message === "") {
+      content = "Message is required";
+    } else if (state.link === "") {
       content = "Link is required";
     } else if (!re.test(state.link)) {
       content = "Enter a valid link";
@@ -138,8 +144,27 @@ function RegistrationForm(props) {
             <div className="rounded overflow-hidden shadow-lg bg-white relative">
               <div className="px-6 py-4">
                 <label
-                  htmlFor="link"
+                  htmlFor="message"
                   className="block text-sm font-medium text-gray-700"
+                >
+                  Message
+                </label>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                  <textarea
+                    name="message"
+                    id="message"
+                    rows="2"
+                    className="focus:border-gray-800 flex-1 block w-full rounded-md sm:text-sm border-gray-300 border p-3"
+                    placeholder="Enter message"
+                    value={state.message}
+                    onChange={formHandler}
+                    autoFocus
+                  ></textarea>
+                </div>
+
+                <label
+                  htmlFor="link"
+                  className="block text-sm font-medium text-gray-700 mt-4"
                 >
                   Link
                 </label>
@@ -149,10 +174,9 @@ function RegistrationForm(props) {
                     name="link"
                     id="link"
                     className="focus:border-gray-800 flex-1 block w-full rounded-md sm:text-sm border-gray-300 border p-3"
-                    placeholder="Registration link"
+                    placeholder="Enter link"
                     value={state.link}
                     onChange={formHandler}
-                    autoFocus
                   />
                 </div>
               </div>
@@ -179,4 +203,4 @@ function RegistrationForm(props) {
   );
 }
 
-export default RegistrationForm;
+export default AnnouncementForm;

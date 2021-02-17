@@ -390,6 +390,7 @@ function NewsForm(props) {
                     placeholder="Title"
                     value={state.title}
                     onChange={formHandler}
+                    autoFocus
                   />
                 </div>
 

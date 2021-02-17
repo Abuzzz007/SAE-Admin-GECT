@@ -372,6 +372,7 @@ function GalleryForm(props) {
                     placeholder="Enter priority no"
                     value={state.priority}
                     onChange={formHandler}
+                    autoFocus
                   />
                 </div>
               </div>

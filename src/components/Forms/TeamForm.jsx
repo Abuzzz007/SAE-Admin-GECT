@@ -389,6 +389,7 @@ function TeamForm(props) {
                     placeholder="Enter name"
                     value={state.name}
                     onChange={formHandler}
+                    autoFocus
                   />
                 </div>
 

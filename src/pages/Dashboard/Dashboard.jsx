@@ -8,6 +8,7 @@ import Achievements from "../Achievements/Achievements";
 import Team from "../Team/Team";
 import News from "../News/News";
 import Registration from "../Registration/Registration";
+import Announcement from "../Announcement/Announcement";
 
 function Dashboard(props) {
   return (
@@ -26,6 +27,7 @@ function Dashboard(props) {
             <Route path="/team" exact component={Team} />
             <Route path="/news" exact component={News} />
             <Route path="/registration" exact component={Registration} />
+            <Route path="/announcement" exact component={Announcement} />
             <Redirect path="*" to="/events" />
           </Switch>
         </div>

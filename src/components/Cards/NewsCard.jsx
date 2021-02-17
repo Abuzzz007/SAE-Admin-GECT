@@ -89,7 +89,9 @@ function NewsCard(props) {
           <div className="px-6 py-4">
             <div className="font-bold text-xl">{props.title}</div>
             <h2 className="text-gray-600 text-xs text-right">Date: {date}</h2>
-            <p className="text-gray-700 text-base">{props.content}</p>
+            <p className="text-gray-700 text-base whitespace-pre-line">
+              {props.content}
+            </p>
           </div>
         </div>
       ) : (
