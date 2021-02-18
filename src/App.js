@@ -24,11 +24,11 @@ function App() {
       if (loader) {
         loader.style.opacity = "0";
         setTimeout(() => {
-          loader.remove();
+          loader.style.display = "none";
         }, 500);
       }
     }
-  }, []);
+  }, [isLoggedIn]);
 
   const resize = () => {
     let vh = window.innerHeight * 0.01;
@@ -56,7 +56,7 @@ function App() {
         if (loader) {
           loader.style.opacity = "0";
           setTimeout(() => {
-            loader.remove();
+            loader.style.display = "none";
           }, 500);
         }
       })
@@ -68,7 +68,7 @@ function App() {
           if (loader) {
             loader.style.opacity = "0";
             setTimeout(() => {
-              loader.remove();
+              loader.style.display = "none";
             }, 500);
           }
         }

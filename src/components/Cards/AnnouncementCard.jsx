@@ -95,14 +95,14 @@ function AnnouncementCard(props) {
           )}
 
           <button
-            title="Edit Link"
+            title="Edit Announcement"
             className="absolute text-sm bg-white focus:outline-none text-green-600 rounded-lg p-2 opacity-80 right-9 top-1 hover:opacity-100 border border-gray-300"
             onClick={() => setEdit(true)}
           >
             <i className="fas fa-edit"></i>
           </button>
           <button
-            title="Delete Link"
+            title="Delete Announcement"
             className="absolute text-sm bg-white focus:outline-none text-red-600 rounded-lg p-2 opacity-80 right-1 top-1 hover:opacity-100 border border-gray-300"
             onClick={() => setShowModal(true)}
           >

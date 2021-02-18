@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import firebase from "firebase/app";
+import "firebase/auth";
 //Components
 import LogOutModal from "../Modals/LogOutModal";
 //Images
@@ -49,10 +51,21 @@ function Sidebar(props) {
   };
 
   const logoutHandler = () => {
-    window.localStorage.clear();
-    window.sessionStorage.clear();
-    props.setIsLoggedIn(false);
-    history.push("/");
+    let loader = document.getElementById("loading-spinner");
+    loader.style.opacity = "100";
+    loader.style.display = "block";
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        window.localStorage.clear();
+        window.sessionStorage.clear();
+        props.setIsLoggedIn(false);
+        history.push("/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -200,6 +213,20 @@ function Sidebar(props) {
           <button
             className={
               "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
+              (route === "/contact" ? selected : unselected)
+            }
+            onClick={() => {
+              history.push("/contact");
+              setRoute("/contact");
+            }}
+          >
+            <i className="fas fa-phone-alt"></i>
+            <span className="mx-4 font-medium lg:block hidden">Contact us</span>
+          </button>
+
+          <button
+            className={
+              "flex items-center mt-5 py-3 lg:py-2 pb-7 lg:pb-7 px-4 lg:px-8 w-full focus:outline-none " +
               unselected
             }
             onClick={() => setShowModal(true)}
@@ -325,6 +352,20 @@ function Sidebar(props) {
           <button
             className={
               "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
+              (route === "/contact" ? selected : unselected)
+            }
+            onClick={() => {
+              history.push("/contact");
+              setRoute("/contact");
+            }}
+          >
+            <i className="fas fa-phone-alt"></i>
+            <span className="mx-4 font-medium block">Contact us</span>
+          </button>
+
+          <button
+            className={
+              "menu-btn flex items-center mt-5 pt-2 pb-7 px-8 w-full focus:outline-none " +
               unselected
             }
             onClick={() => setShowModal(true)}

@@ -9,6 +9,7 @@ import Team from "../Team/Team";
 import News from "../News/News";
 import Registration from "../Registration/Registration";
 import Announcement from "../Announcement/Announcement";
+import Contact from "../Contact/Contact";
 
 function Dashboard(props) {
   return (
@@ -28,6 +29,7 @@ function Dashboard(props) {
             <Route path="/news" exact component={News} />
             <Route path="/registration" exact component={Registration} />
             <Route path="/announcement" exact component={Announcement} />
+            <Route path="/contact" exact component={Contact} />
             <Redirect path="*" to="/events" />
           </Switch>
         </div>
