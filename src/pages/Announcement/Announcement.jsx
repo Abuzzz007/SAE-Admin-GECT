@@ -83,7 +83,7 @@ function Announcement() {
         {isLoading ? <Loader /> : ""}
 
         <div className="w-full">
-          <div className="p-10" style={{ maxWidth: "40rem" }}>
+          <div className="p-10">
             {data
               ? keys
                 ? data.map((data, i) => (

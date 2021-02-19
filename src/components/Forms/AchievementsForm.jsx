@@ -31,7 +31,7 @@ function AchievementsForm(props) {
         imageUrl: props.imageUrl,
       });
     }
-  }, [props]);
+  }, [props.Key, props.title, props.content, props.priority, props.imageUrl]);
 
   const dragEnter = (e) => {
     e.preventDefault();

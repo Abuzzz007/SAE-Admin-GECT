@@ -108,13 +108,18 @@ function RegistrationCard(props) {
           >
             <i className="fas fa-trash-alt"></i>
           </button>
-          <div className="px-6 py-4">
-            <strong>Link:</strong>
-            <a href={props.link} target="_blank" rel="noreferrer">
-              <p className="text-base break-all text-blue-700 hover:text-blue-600 hover:underline">
-                {props.link}
-              </p>
-            </a>
+
+          <div className="grid grid-cols-3 bg-white shadow rounded-lg sm:rounded-none mb-5 sm:mb-0">
+            <div className="px-6 py-5 col-span-1 text-left text-xs font-medium bg-gray-50 text-gray-500 uppercase rounded-bl-lg border-r border-gray-200">
+              Link
+            </div>
+            <div className="px-6 py-4 col-span-2 sm:col-span-2 sm:border-b border-gray-200">
+              <a href={props.link} target="_blank" rel="noreferrer">
+                <div className="text-sm break-all text-blue-700 hover:text-blue-600 hover:underline">
+                  {props.link}
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       ) : (

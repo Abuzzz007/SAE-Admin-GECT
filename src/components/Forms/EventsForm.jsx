@@ -32,7 +32,7 @@ function EventsForm(props) {
         imageUrl: props.imageUrl,
       });
     }
-  }, [props]);
+  }, [props.Key, props.title, props.date, props.content, props.imageUrl]);
 
   const dragEnter = (e) => {
     e.preventDefault();

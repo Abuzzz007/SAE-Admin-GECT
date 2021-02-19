@@ -31,7 +31,7 @@ function TeamForm(props) {
         imageUrl: props.imageUrl,
       });
     }
-  }, [props]);
+  }, [props.Key, props.name, props.position, props.priority, props.imageUrl]);
 
   const dragEnter = (e) => {
     e.preventDefault();

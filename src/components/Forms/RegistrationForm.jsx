@@ -19,7 +19,7 @@ function RegistrationForm(props) {
         link: props.link,
       });
     }
-  }, [props]);
+  }, [props.Key, props.link]);
 
   const formHandler = (e) => {
     setState({ ...state, [e.target.id]: e.target.value });

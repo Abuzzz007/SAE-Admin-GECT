@@ -21,7 +21,7 @@ function ContactForm(props) {
         phno: props.phno,
       });
     }
-  }, [props]);
+  }, [props.Key, props.name, props.phno]);
 
   const formHandler = (e) => {
     setState({ ...state, [e.target.id]: e.target.value });

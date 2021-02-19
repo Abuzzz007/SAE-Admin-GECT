@@ -21,7 +21,7 @@ function AnnouncementForm(props) {
         link: props.link,
       });
     }
-  }, [props]);
+  }, [props.Key, props.message, props.link]);
 
   const formHandler = (e) => {
     setState({ ...state, [e.target.id]: e.target.value });

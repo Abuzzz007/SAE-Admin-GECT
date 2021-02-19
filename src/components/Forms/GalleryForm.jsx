@@ -28,7 +28,7 @@ function GalleryForm(props) {
         imageUrl: props.imageUrl,
       });
     }
-  }, [props]);
+  }, [props.Key, props.priority, props.imageUrl]);
 
   const dragEnter = (e) => {
     e.preventDefault();
