@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/database";
 //Components
-import TeamCard from "../../components/Cards/TeamCard";
-import TeamForm from "../../components/Forms/TeamForm";
+import ExecomCard from "../../components/Cards/ExecomCard";
+import ExecomForm from "../../components/Forms/ExecomForm";
+import ExecomYearForm from "../../components/Forms/ExecomYearForm";
 import Alert from "../../components/Alerts/Alert";
 import Loader from "../../components/Loaders/ContentLoader";
 import DeleteModal from "../../components/Modals/DeleteModal";
 
-function Team() {
+function Execom() {
+  const [year, setYear] = useState("");
+  const [yearKey, setYearKey] = useState("");
+  const [editYear, setEditYear] = useState(false);
   const [data, setData] = useState(null);
   const [keys, setKeys] = useState(null);
   const [addNew, setAddNew] = useState(false);
@@ -17,14 +21,29 @@ function Team() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+    fetchYear();
     fetchData();
   }, []);
+
+  const fetchYear = () => {
+    firebase
+      .database()
+      .ref("/execom-year/")
+      .once("value")
+      .then((snapshot) => {
+        let data = snapshot.val();
+        if (data) {
+          setYear(Object.values(data)[0].year);
+          setYearKey(Object.keys(data)[0]);
+        }
+      });
+  };
 
   const fetchData = () => {
     setIsLoading(true);
     firebase
       .database()
-      .ref("/team/")
+      .ref("/execom/")
       .once("value")
       .then((snapshot) => {
         let data = snapshot.val();
@@ -56,12 +75,12 @@ function Team() {
 
       firebase
         .storage()
-        .ref("/team/" + fileName)
+        .ref("/execom/" + fileName)
         .delete()
         .then(() => {
           firebase
             .database()
-            .ref("/team/" + Key)
+            .ref("/execom/" + Key)
             .remove()
             .then(() => {
               fetchData();
@@ -92,7 +111,31 @@ function Team() {
         ""
       )}
       <div className="left-0 sm:left-14 mt-14 sm:mt-0 lg:left-64 right-0 bg-gray-100 rounded-b-lg shadow fixed z-20">
-        <div className="p-1 pl-4 sm:p-4 text-lg sm:text-2xl">Team</div>
+        <div className="p-1 pl-4 sm:p-4 text-lg sm:text-2xl">
+          Executive Committee{" "}
+          {!editYear ? (
+            <>
+              <span className="mr-5">{year}</span>
+              <span className="relative">
+                <button
+                  title="Edit Year"
+                  className="text-sm absolute -top-1 bg-white focus:outline-none text-green-600 rounded-lg p-1 sm:p-2 opacity-100 border border-gray-300"
+                  onClick={() => setEditYear(true)}
+                >
+                  <i className="fas fa-edit"></i>
+                </button>
+              </span>
+            </>
+          ) : (
+            <ExecomYearForm
+              year={year}
+              Key={yearKey}
+              fetchYear={fetchYear}
+              setEditYear={setEditYear}
+              setAlert={setAlert}
+            />
+          )}
+        </div>
       </div>
       <div className="flex flex-wrap pt-24 sm:pt-16 z-0">
         <Alert
@@ -127,7 +170,7 @@ function Team() {
             </>
           ) : (
             <div className="p-4 mx-auto" style={{ maxWidth: "35rem" }}>
-              <TeamForm
+              <ExecomForm
                 setAddNew={setAddNew}
                 setAlert={setAlert}
                 fetchData={fetchData}
@@ -142,7 +185,7 @@ function Team() {
             ? keys
               ? data.map((data, i) => (
                   <div key={i}>
-                    <TeamCard
+                    <ExecomCard
                       Key={keys[i]}
                       name={data.name}
                       position={data.position}
@@ -162,4 +205,4 @@ function Team() {
   );
 }
 
-export default Team;
+export default Execom;

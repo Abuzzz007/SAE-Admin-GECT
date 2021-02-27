@@ -153,15 +153,15 @@ function Sidebar(props) {
           <button
             className={
               "flex items-center mt-5 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
-              (route === "/team" ? selected : unselected)
+              (route === "/execom" ? selected : unselected)
             }
             onClick={() => {
-              history.push("/team");
-              setRoute("/team");
+              history.push("/execom");
+              setRoute("/execom");
             }}
           >
             <i className="fas fa-users"></i>
-            <span className="mx-4 font-medium lg:block hidden">Team</span>
+            <span className="mx-4 font-medium lg:block hidden">Execom</span>
           </button>
 
           <button
@@ -226,7 +226,7 @@ function Sidebar(props) {
 
           <button
             className={
-              "flex items-center mt-5 py-3 lg:py-2 pb-7 lg:pb-7 px-4 lg:px-8 w-full focus:outline-none " +
+              "flex items-center mt-5 mb-6 py-3 lg:py-2 px-4 lg:px-8 w-full focus:outline-none " +
               unselected
             }
             onClick={() => setShowModal(true)}
@@ -296,15 +296,15 @@ function Sidebar(props) {
           <button
             className={
               "menu-btn flex items-center mt-5 py-2 px-8 w-full focus:outline-none " +
-              (route === "/team" ? selected : unselected)
+              (route === "/execom" ? selected : unselected)
             }
             onClick={() => {
-              history.push("/team");
-              setRoute("/team");
+              history.push("/execom");
+              setRoute("/execom");
             }}
           >
             <i className="fas fa-users"></i>
-            <span className="mx-4 font-medium block">Team</span>
+            <span className="mx-4 font-medium block">Execom</span>
           </button>
 
           <button
@@ -365,7 +365,7 @@ function Sidebar(props) {
 
           <button
             className={
-              "menu-btn flex items-center mt-5 pt-2 pb-7 px-8 w-full focus:outline-none " +
+              "menu-btn flex items-center mt-5 mb-6 py-2 px-8 w-full focus:outline-none " +
               unselected
             }
             onClick={() => setShowModal(true)}

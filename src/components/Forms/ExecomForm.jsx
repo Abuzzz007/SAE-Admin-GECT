@@ -8,7 +8,7 @@ import Loader from "../Loaders/FormLoader";
 //Images
 import DummyBg from "../../assets/dummyBg.png";
 
-function TeamForm(props) {
+function ExecomForm(props) {
   const [state, setState] = useState({
     name: "",
     position: "",
@@ -96,7 +96,7 @@ function TeamForm(props) {
     let fileName = String(Number(new Date())) + state.image.name;
     let uploadTask = firebase
       .storage()
-      .ref("/team/" + fileName)
+      .ref("/execom/" + fileName)
       .put(state.image);
     uploadTask.on(
       "state_changed",
@@ -120,7 +120,7 @@ function TeamForm(props) {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           firebase
             .database()
-            .ref("/team/")
+            .ref("/execom/")
             .push(
               {
                 name: state.name,
@@ -161,7 +161,7 @@ function TeamForm(props) {
       setUploadPercent(101);
       firebase
         .database()
-        .ref("/team/" + props.Key)
+        .ref("/execom/" + props.Key)
         .update(
           {
             name: state.name,
@@ -193,13 +193,13 @@ function TeamForm(props) {
       //if image changed
       firebase
         .storage()
-        .ref("/team/" + props.fileName)
+        .ref("/execom/" + props.fileName)
         .delete()
         .then(() => {
           let fileName = String(Number(new Date())) + state.image.name;
           let uploadTask = firebase
             .storage()
-            .ref("/team/" + fileName)
+            .ref("/execom/" + fileName)
             .put(state.image);
           uploadTask.on(
             "state_changed",
@@ -223,7 +223,7 @@ function TeamForm(props) {
               uploadTask.snapshot.ref.getDownloadURL().then((url) => {
                 firebase
                   .database()
-                  .ref("/team/" + props.Key)
+                  .ref("/execom/" + props.Key)
                   .update(
                     {
                       name: state.name,
@@ -317,7 +317,7 @@ function TeamForm(props) {
         ""
       )}
       <div>
-        <form>
+        <form autoComplete="off">
           <div className="shadow rounded-md sm:overflow-hidden relative">
             {isLoading ? <Loader uploadPercent={uploadPercent} /> : ""}
 
@@ -452,4 +452,4 @@ function TeamForm(props) {
   );
 }
 
-export default TeamForm;
+export default ExecomForm;

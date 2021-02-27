@@ -4,9 +4,9 @@ import "firebase/storage";
 import { useState } from "react";
 //Components
 import DeleteModal from "../Modals/DeleteModal";
-import TeamForm from "../Forms/TeamForm";
+import ExecomForm from "../Forms/ExecomForm";
 
-function TeamCard(props) {
+function ExecomCard(props) {
   const [showModal, setShowModal] = useState(false);
   const [edit, setEdit] = useState(false);
 
@@ -14,12 +14,12 @@ function TeamCard(props) {
     setShowModal(false);
     firebase
       .storage()
-      .ref("/team/" + props.fileName)
+      .ref("/execom/" + props.fileName)
       .delete()
       .then(() => {
         firebase
           .database()
-          .ref("/team/" + props.Key)
+          .ref("/execom/" + props.Key)
           .remove()
           .then(() => {
             props.fetchData();
@@ -79,7 +79,7 @@ function TeamCard(props) {
           </div>
         </div>
       ) : (
-        <TeamForm
+        <ExecomForm
           setAlert={props.setAlert}
           fetchData={props.fetchData}
           setAddNew={setEdit}
@@ -95,4 +95,4 @@ function TeamCard(props) {
   );
 }
 
-export default TeamCard;
+export default ExecomCard;

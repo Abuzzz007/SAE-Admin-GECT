@@ -5,7 +5,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Events from "../Events/Events";
 import Gallery from "../Gallery/Gallery";
 import Achievements from "../Achievements/Achievements";
-import Team from "../Team/Team";
+import Execom from "../Execom/Execom";
 import News from "../News/News";
 import Registration from "../Registration/Registration";
 import Announcement from "../Announcement/Announcement";
@@ -25,7 +25,7 @@ function Dashboard(props) {
             <Route path="/events" exact component={Events} />
             <Route path="/gallery" exact component={Gallery} />
             <Route path="/achievements" exact component={Achievements} />
-            <Route path="/team" exact component={Team} />
+            <Route path="/execom" exact component={Execom} />
             <Route path="/news" exact component={News} />
             <Route path="/registration" exact component={Registration} />
             <Route path="/announcement" exact component={Announcement} />
