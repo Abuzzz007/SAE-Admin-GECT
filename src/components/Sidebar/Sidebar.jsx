@@ -36,7 +36,7 @@ function Sidebar(props) {
 
   let selected = "bg-gray-700 text-gray-100 border-r-4 border-gray-100";
   let unselected =
-    "text-gray-400 border-r-4 border-gray-800 hover:bg-gray-700 hover:text-gray-100 hover:border-gray-100";
+    "text-gray-400 border-r-4 border-gray-800 sm:hover:bg-gray-700 sm:hover:text-gray-100 sm:hover:border-gray-100";
 
   const mouseEnterHandler = () => {
     if (window.innerWidth < 1024) {
@@ -83,7 +83,7 @@ function Sidebar(props) {
       <div className="sm:hidden bg-gray-900 left-0 top-0 right-0 shadow fixed z-10">
         <div className="flex pt-2 pb-1">
           <button
-            className="text-gray-100 text-2xl p-2 px-3 -mt-1 mx-2 rounded-md focus:outline-none hover:bg-gray-700"
+            className="text-gray-100 text-2xl p-2 px-3 -mt-1 mx-2 rounded-md focus:outline-none sm:hover:bg-gray-700"
             onClick={() => setCollapse(false)}
           >
             <i className="fas fa-bars"></i>
@@ -240,7 +240,7 @@ function Sidebar(props) {
       {/* sliding sidebar */}
       <div
         className={
-          "sliding-sidebar w-56 sm:w-64 h-screen bg-gray-900 fixed top-0 overflow-auto z-30 transition duration-500 lg:hidden transform " +
+          "sliding-sidebar w-56 sm:w-64 bg-gray-900 fixed top-0 bottom-0 overflow-auto z-30 transition duration-500 lg:hidden transform " +
           (collapse ? "-translate-x-64" : "")
         }
         onMouseLeave={() => mouseLeaveHandler()}

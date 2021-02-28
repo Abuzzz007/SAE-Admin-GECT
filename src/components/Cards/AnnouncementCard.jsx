@@ -109,7 +109,7 @@ function AnnouncementCard(props) {
             <i className="fas fa-trash-alt"></i>
           </button>
 
-          <div className="grid grid-cols-3 bg-white shadow rounded-lg sm:rounded-none mb-5 sm:mb-0">
+          <div className="grid grid-cols-3 bg-white shadow rounded-lg sm:rounded-none">
             <div className="px-6 py-5 col-span-1  text-left text-xs font-medium bg-gray-50 text-gray-500 uppercase rounded-tl-lg border-r border-b border-gray-200">
               Message
             </div>
