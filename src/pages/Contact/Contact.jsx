@@ -55,8 +55,7 @@ function Contact() {
     firebase
       .database()
       .ref("/messages/")
-      .once("value")
-      .then((snapshot) => {
+      .on("value", (snapshot) => {
         let data = snapshot.val();
         if (data) {
           setMessageData(Object.values(data));
